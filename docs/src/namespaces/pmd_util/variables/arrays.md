@@ -4,7 +4,7 @@
 
 > `const` **arrays**: `object` = `pmd_utilities.ArrayUtilities`
 
-Defined in: [src/index.ts:33](https://github.com/crookedlungs/pmd-utilities/blob/2594c8874d8f2180263b2be804af992d64c301e7/src/index.ts#L33)
+Defined in: [src/index.ts:33](https://github.com/crookedlungs/pmd-utilities/blob/5ca315c6bbade42eec82f4fe36a9e0a801b153e9/src/index.ts#L33)
 
 Array manipulation utilities.
 
