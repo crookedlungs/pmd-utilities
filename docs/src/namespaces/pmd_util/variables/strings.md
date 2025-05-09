@@ -4,7 +4,7 @@
 
 > `const` **strings**: `object` = `pmd_utilities.StringUtilities`
 
-Defined in: [src/index.ts:22](https://github.com/crookedlungs/pmd-utilities/blob/9f39d32abe09ed42c70c16473f8a612f4d8491bd/src/index.ts#L22)
+Defined in: [src/index.ts:22](https://github.com/crookedlungs/pmd-utilities/blob/b257efe87df84203e61d3fe57b7510d8a3632920/src/index.ts#L22)
 
 String manipulation utilities.
 

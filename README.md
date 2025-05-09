@@ -13,18 +13,19 @@ These docs are very much still a work in progress!
 
 ## ✨ Features
 
-- Useful helper functions for common problems including:
-- String capitalization
-- Simple date parsing from `MMDDYYYY`
-- Name splitting and merging (with optional formatting)
+Useful helper functions for common problems including:
+
+- ✏️ String capitalization
+- 📆 Simple date parsing from `MMDDYYYY`
+- 📛 Name splitting and merging (with optional formatting)
 - Array manipulation: find, remove, update, filter, and more
-- Currency and taxes
-- Helpers for working with images.
-- Async function helpers
-- Simple auth helpers
-- Better `fetch` implementation.
-- Better `switch` implementation.
-- Rust-like safety integration.
+- 💵 Currency and taxes
+- 📷 Helpers for working with images
+- ➿ Async function helpers
+- 🔑 Simple auth helpers
+- Better `fetch` implementation
+- Better `switch` implementation
+- 🦀 Rust-like safety integration
 
 ---
 
