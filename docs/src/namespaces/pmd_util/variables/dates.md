@@ -4,7 +4,7 @@
 
 > `const` **dates**: `object` = `pmd_utilities.DateUtilities`
 
-Defined in: [src/index.ts:25](https://github.com/crookedlungs/pmd-utilities/blob/e95126ac0ffa3721bf6a80fcac92206614bcb3cc/src/index.ts#L25)
+Defined in: [src/index.ts:26](https://github.com/crookedlungs/pmd-utilities/blob/19500705a5dabc231662d26be5057eab6a35ebfe/src/index.ts#L26)
 
 Date manipulation utilities.
 

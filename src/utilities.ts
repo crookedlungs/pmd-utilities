@@ -39,9 +39,31 @@ function formatPercentString(number: number): string {
 }
 
 /**
+ * Generates a random integer between the specified `min` and `max` values, inclusive.
+ * Ensures the result is within the whole number range using `Math.ceil` and `Math.floor`.
+ *
+ * @param min The minimum integer value (inclusive).
+ * @param max The maximum integer value (inclusive).
+ * @returns A random integer between `min` and `max`, inclusive.
+ *
+ * @example
+ * const roll = genRandomInRange(1, 6);
+ * console.log(`You rolled a ${roll}`); // Output: You rolled a 3 (or any number between 1 and 6)
+ *
+ * @example
+ * const temperature = genRandomInRange(-10, 40);
+ * console.log(`Temperature: ${temperature}°C`); // Output: Temperature: 22°C (or any between -10 and 40)
+ */
+function genRandomInRange(min: number, max: number): number {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+/**
  * Utility functions relevant to working with numbers.
  */
-export const NumberUtilities = { formatPercentString };
+export const NumberUtilities = { formatPercentString, genRandomInRange };
 
 // Currency
 
@@ -414,6 +436,59 @@ async function tryCatchAsync<T>(
 
 export const AsyncUtilities = { tryCatchAsync };
 
+// Image Utilities
+
+/**
+ * Calculates the aspect ratio (width divided by height).
+ *
+ * @param height - The height of the element.
+ * @param width - The width of the element.
+ * @returns The aspect ratio as a number (width / height).
+ *
+ * @example
+ * const ar = getAspectRatio(1080, 1920);
+ * console.log(ar); // Output: 1.7777777777777777 (which is 16:9)
+ */
+function getAspectRatio(height: number, width: number): number {
+  return width / height;
+}
+
+/**
+ * Calculates the width of an element from its height and aspect ratio.
+ *
+ * @param height - The height of the element.
+ * @param ar - The aspect ratio (width / height).
+ * @returns The calculated width, rounded to the nearest whole number.
+ *
+ * @example
+ * const width = getHeightFromAR(1080, 1.7777777778);
+ * console.log(width); // Output: 1920
+ */
+function getHeightFromAR(height: number, ar: number): number {
+  return Math.round(height * ar);
+}
+
+/**
+ * Calculates the height of an element from its width and aspect ratio.
+ *
+ * @param width - The width of the element.
+ * @param ar - The aspect ratio (width / height).
+ * @returns The calculated height, rounded to the nearest whole number.
+ *
+ * @example
+ * const height = getWidthFromAR(1920, 1.7777777778);
+ * console.log(height); // Output: 1080
+ */
+function getWidthFromAR(width: number, ar: number): number {
+  return Math.round(width / ar);
+}
+
+export const ImageUtilities = {
+  getWidthFromAR,
+  getHeightFromAR,
+  getAspectRatio,
+};
+
 // Auth Utilities
 
 /**
@@ -421,6 +496,9 @@ export const AsyncUtilities = { tryCatchAsync };
  * @param email The email address to validate.
  * @param targetDomain The domain to check against.
  * @returns True if the email's domain matches the target domain, false otherwise.
+ * @example
+ * validateDomain("user@example.com", "example.com"); // true
+ * validateDomain("admin@other.com", "example.com"); // false
  */
 function validateDomain(email: string, targetDomain: string): boolean {
   if (isValidEmail(email)) {
@@ -442,6 +520,9 @@ function validateDomain(email: string, targetDomain: string): boolean {
  * Validates if the email is in a valid format.
  * @param email The email address to validate.
  * @returns True if the email format is valid, false otherwise.
+ * @example
+ * isValidEmail("user@example.com"); // true
+ * isValidEmail("invalid-email"); // false
  */
 function isValidEmail(email: string): boolean {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -453,6 +534,9 @@ function isValidEmail(email: string): boolean {
  * Uses `isStrongPassword()` to ensure password is strong. Retries if not.
  * @param length The length of the password to generate.
  * @returns A randomly generated password that is strong.
+ * @example
+ * const password = generateRandomPassword(12);
+ * console.log(password); // Example: "aA1!xYz@9Pq#"
  */
 function generateRandomPassword(length: number): string {
   const charset =
@@ -477,6 +561,9 @@ function generateRandomPassword(length: number): string {
  * @param password The password to check.
  * @param minLength The minimum password length. Defaults to 8.
  * @returns True if the password meets strength criteria, false otherwise.
+ * @example
+ * isStrongPassword("aB3$dEfG"); // true
+ * isStrongPassword("weakpass"); // false
  */
 function isStrongPassword(password: string, minLength: number = 8): boolean {
   const hasUpperCase = /[A-Z]/.test(password);
@@ -498,6 +585,9 @@ function isStrongPassword(password: string, minLength: number = 8): boolean {
  * @param userRoles The roles assigned to the user.
  * @param requiredRole The role required for the action.
  * @returns True if the user has the required role, false otherwise.
+ * @example
+ * hasRole(["admin", "editor"], "admin"); // true
+ * hasRole(["viewer"], "editor"); // false
  */
 function hasRole(userRoles: string[], requiredRole: string): boolean {
   return userRoles.includes(requiredRole);
@@ -507,6 +597,9 @@ function hasRole(userRoles: string[], requiredRole: string): boolean {
  * Hashes a password asynchronously.
  * @param password The password to hash.
  * @returns The hashed password.
+ * @example
+ * const hashed = await hashPassword("SuperSecret123!");
+ * console.log(hashed); // $2b$10$...
  */
 async function hashPassword(password: string): Promise<string> {
   const saltRounds = 10;
@@ -518,6 +611,10 @@ async function hashPassword(password: string): Promise<string> {
  * @param password The plain password.
  * @param hashedPassword The hashed password to compare against.
  * @returns True if the passwords match, false otherwise.
+ * @example
+ * const hashed = await hashPassword("myPassword123!");
+ * const isMatch = await comparePassword("myPassword123!", hashed);
+ * console.log(isMatch); // true
  */
 async function comparePassword(
   password: string,
@@ -546,8 +643,17 @@ export const AuthUtilities = {
  * @param host Host address to fetch from.
  * @param endpoint Endpoint to target.
  * @param query Query options
- * @param log Whether to log responses or not. Defaults to false.
+ * @param log Whether to log responses or not. Defaults to `false`.
  * @returns
+ *
+ * @example
+ * const response = await proFetchGet(
+ *   "https://api.example.com",
+ *   "users",
+ *   [{ field: "role", value: "admin" }, { field: "active", value: true }],
+ *   true
+ * );
+ * console.log(response); // Logs the filtered user data if successful.
  */
 async function proFetchGet(
   host: string,
@@ -597,14 +703,17 @@ async function proFetchGet(
  * @param host Host address to push to.
  * @param endpoint Endpoint to target.
  * @param body The record to post.
- * @param log Whether to log responses or not. Defaults to false.
+ * @param log Whether to log responses or not. Defaults to `false`.
  * @returns
- * 
- * @example const response = await proFetchPost(
-  "https://api.example.com",
-  "submit",
-  { name: "Alice", score: 42 }
-);
+ *
+ * @example
+ * const response = await proFetchPost(
+ *   "https://api.example.com",
+ *   "submit",
+ *   { name: "Alice", score: 42 },
+ *   true
+ * );
+ * console.log(response); // Logs the confirmation or resulting data from the POST request.
  */
 async function proFetchPost(
   host: string,
@@ -738,6 +847,10 @@ function assert(
  * @param value The value to validate.
  * @param msg Optional custom error message.
  * @throws Error if the value is null or undefined.
+ * @example
+ * const input = getInput();
+ * isValid(input, "Input must be provided");
+ * console.log(input.length); // Safe to use now
  */
 function isValid<T>(value: T, msg = "value is invalid!") {
   assert(value != null, msg);
@@ -749,6 +862,10 @@ function isValid<T>(value: T, msg = "value is invalid!") {
  * @template T - The type of the wrapped value.
  * @param value - The value to wrap.
  * @returns An Option of kind "some" containing the provided value.
+ * @example
+ * const maybeName = Some("Alice");
+ * console.log(maybeName.kind); // "some"
+ * console.log(maybeName.value); // "Alice"
  */
 const Some = <T>(value: T): Option<T> => ({ kind: "some", value });
 
@@ -756,6 +873,9 @@ const Some = <T>(value: T): Option<T> => ({ kind: "some", value });
  * Represents the absence of a value.
  *
  * @returns An Option of kind "none".
+ * @example
+ * const maybeEmpty = None();
+ * console.log(maybeEmpty.kind); // "none"
  */
 const None = (): Option<never> => ({ kind: "none" });
 
@@ -767,6 +887,9 @@ const None = (): Option<never> => ({ kind: "none" });
  * @param opt - The Option to unwrap.
  * @param fallback - The fallback value to return if `opt` is "none".
  * @returns The unwrapped value if present, or the fallback.
+ * @example
+ * const name = unwrapOr(Some("Bob"), "Anonymous"); // "Bob"
+ * const name2 = unwrapOr(None(), "Anonymous");     // "Anonymous"
  */
 function unwrapOr<T>(opt: Option<T>, fallback: T): T {
   return opt.kind === "some" ? opt.value : fallback;
@@ -777,6 +900,11 @@ function unwrapOr<T>(opt: Option<T>, fallback: T): T {
  *
  * @param value - The value to wrap in an `Ok`.
  * @returns A `Result` of type `Ok<T>`.
+ * @example
+ * const result = Ok(42);
+ * if (result.ok) {
+ *   console.log(result.value); // 42
+ * }
  */
 const Ok = <T>(value: T): Result<T, never> => ({ ok: true, value });
 
@@ -785,6 +913,11 @@ const Ok = <T>(value: T): Result<T, never> => ({ ok: true, value });
  *
  * @param error - The error to wrap in an `Err`.
  * @returns A `Result` of type `Err<E>`.
+ * @example
+ * const result = Err("Something went wrong");
+ * if (!result.ok) {
+ *   console.error(result.error); // "Something went wrong"
+ * }
  */
 const Err = <E>(error: E): Result<never, E> => ({ ok: false, error });
 
@@ -795,6 +928,12 @@ const Err = <E>(error: E): Result<never, E> => ({ ok: false, error });
  * @param res - The `Result` to unwrap.
  * @returns The value if `res` is `Ok`.
  * @throws The error if `res` is `Err`.
+ * @example
+ * const result = Ok("Success!");
+ * const value = unwrapResult(result); // "Success!"
+ *
+ * const errorResult = Err(new Error("Oops!"));
+ * unwrapResult(errorResult); // throws Error: "Oops!"
  */
 function unwrapResult<T, E>(res: Result<T, E>): T {
   if (res.ok) return res.value;

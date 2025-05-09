@@ -1,34 +1,64 @@
 import * as pmd_utilities from "./utilities.js";
+/**
+ * A collection of reusable utility functions for strings, numbers, currency, dates, names, and arrays. Designed for modern TypeScript applications.
+ * Useful helper functions for common problems including:
+  - String capitalization
+  - Simple date parsing from `MMDDYYYY`
+  - Name splitting and merging (with optional formatting)
+  - Array manipulation: find, remove, update, filter, and more
+  - Currency and taxes
+  - Helpers for working with images.
+  - Async function helpers
+  - Simple auth helpers
+  - Better `fetch` implementation.
+  - Better `switch` implementation.
+  - Rust-like safety integration.
+ */
 export declare namespace pmd_util {
+    /**
+     * String manipulation utilities.
+     */
     const strings: {
         capitalize: (word: string) => string;
     };
+    /**
+     * Date manipulation utilities.
+     */
     const dates: {
         dateFromString: (input: string, locale?: string) => string;
     };
+    /**
+     * Name manipulation utilities.
+     */
     const names: {
         splitFullName: (full_name: string, format?: boolean) => {
             firstName: string;
             last_name: string;
         };
         mergeFullName: (firstName: string, lastName: string, format?: boolean) => string;
-        formatNameWithPrefix: (name: string | {
+        formatNameWithPrefix: (name: {
             firstName: string;
             lastName: string;
-        }, prefix: "Mr" | "Mrs" | "Ms" | "Dr") => string;
+        } | string, prefix: "Mr" | "Mrs" | "Ms" | "Dr") => string;
     };
+    /**
+     * Array manipulation utilities.
+     */
     const arrays: {
         allExcept: <T, K extends keyof T>(array: T[], property: K, excludeValue: T[K]) => T[];
-        clearArray: <T_1>(array: T_1[]) => Promise<void>;
-        removeAt: <T_2>(arr: T_2[], index: number) => void;
-        findInArray: <T_3, K_1 extends keyof T_3>(array: T_3[], key: K_1, value: T_3[K_1]) => T_3 | undefined;
-        requireInArray: <T_4, K_2 extends keyof T_4>(array: T_4[], key: K_2, value: T_4[K_2]) => T_4;
-        findIndexInArray: <T_5, K_3 extends keyof T_5>(array: T_5[], key: K_3, value: T_5[K_3]) => number;
-        removeFromArray: <T_6, K_4 extends keyof T_6>(array: T_6[], key: K_4, value: T_6[K_4]) => T_6[];
-        bulkRemoveFromArray: <T_7, K_5 extends keyof T_7>(array: T_7[], key: K_5, values: T_7[K_5][]) => T_7[];
-        updateInArray: <T_8, K_6 extends keyof T_8>(array: T_8[], key: K_6, value: T_8[K_6], updater: (item: T_8) => T_8) => T_8[];
-        bulkUpdateInArray: <T_9, K_7 extends keyof T_9>(array: T_9[], key: K_7, values: T_9[K_7][], updater: (item: T_9) => T_9) => T_9[];
+        clearArray: <T>(array: T[]) => Promise<void>;
+        removeAt: <T>(arr: T[], index: number) => void;
+        findInArray: <T, K extends keyof T>(array: T[], key: K, value: T[K]) => T | undefined;
+        requireInArray: <T, K extends keyof T>(array: T[], key: K, value: T[K]) => T;
+        findIndexInArray: <T, K extends keyof T>(array: T[], key: K, value: T[K]) => number;
+        removeFromArray: <T, K extends keyof T>(array: T[], key: K, value: T[K]) => T[];
+        bulkRemoveFromArray: <T, K extends keyof T>(array: T[], key: K, values: T[K][]) => T[];
+        updateInArray: <T, K extends keyof T>(array: T[], key: K, value: T[K], updater: (item: T) => T) => T[];
+        bulkUpdateInArray: <T, K extends keyof T>(array: T[], key: K, values: T[K][], updater: (item: T) => T) => T[];
     };
+    /**
+     * Currency manipulation utilities.
+     */
     const currency: {
         formatCurrency: (amount: number, currency?: string) => string;
         calculateTax: (subtotal: number, taxRate: number) => number;
@@ -37,12 +67,22 @@ export declare namespace pmd_util {
         convertCurrency: (amount: number, fromRate: number, toRate: number) => number;
         getTaxRateByState: (state: string) => number | undefined;
     };
+    /**
+     * Number manipulation utilities.
+     */
     const number: {
         formatPercentString: (number: number) => string;
+        genRandomInRange: (min: number, max: number) => number;
     };
+    /**
+     * Async helpers.
+     */
     const async: {
         tryCatchAsync: <T>(asyncFunc: () => Promise<T>, fallback: T) => Promise<T>;
     };
+    /**
+     * Authorization helpers.
+     */
     const auth: {
         generateRandomPassword: (length: number) => string;
         validateDomain: (email: string, targetDomain: string) => boolean;
@@ -52,6 +92,9 @@ export declare namespace pmd_util {
         comparePassword: (password: string, hashedPassword: string) => Promise<boolean>;
         hashPassword: (password: string) => Promise<string>;
     };
+    /**
+     * Custom `fetch` implementation.
+     */
     const proFetch: {
         proFetchGet: (host: string, endpoint: string, query: {
             field: string;
@@ -59,18 +102,32 @@ export declare namespace pmd_util {
         }[], log?: boolean) => Promise<any>;
         proFetchPost: (host: string, endpoint: string, body: Record<string, any>, log?: boolean) => Promise<any>;
     };
+    /**
+     * Custom `switch` implementation.
+     */
     const proSwitch: {
-        proSwitch: <T>(key: T, cases: (import("../types.js").DefaultCase | import("../types.js").SwitchCase<T>)[]) => void;
+        proSwitch: <T>(key: T, cases: (import("../types.js").SwitchCase<T> | import("../types.js").DefaultCase)[]) => void;
         proSwitchReturn: typeof pmd_utilities.proSwitchReturn;
     };
+    /**
+     * Rust-like safety integration.
+     */
     const safety: {
         assert: (condition: unknown, msg?: string) => asserts condition;
         Some: <T>(value: T) => import("../types.js").Option<T>;
         None: () => import("../types.js").Option<never>;
         Err: <E>(error: E) => import("../types.js").Result<never, E>;
-        Ok: <T_1>(value: T_1) => import("../types.js").Result<T_1, never>;
-        unwrapOr: <T_2>(opt: import("../types.js").Option<T_2>, fallback: T_2) => T_2;
-        unwrapResult: <T_3, E_1>(res: import("../types.js").Result<T_3, E_1>) => T_3;
-        isValid: <T_4>(value: T_4, msg?: string) => void;
+        Ok: <T>(value: T) => import("../types.js").Result<T, never>;
+        unwrapOr: <T>(opt: import("../types.js").Option<T>, fallback: T) => T;
+        unwrapResult: <T, E>(res: import("../types.js").Result<T, E>) => T;
+        isValid: <T>(value: T, msg?: string) => void;
+    };
+    /**
+     * Image manipulation helpers.
+     */
+    const images: {
+        getWidthFromAR: (width: number, ar: number) => number;
+        getHeightFromAR: (height: number, ar: number) => number;
+        getAspectRatio: (height: number, width: number) => number;
     };
 }

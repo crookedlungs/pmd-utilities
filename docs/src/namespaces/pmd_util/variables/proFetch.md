@@ -4,7 +4,7 @@
 
 > `const` **proFetch**: `object` = `pmd_utilities.FetchUtilities`
 
-Defined in: [src/index.ts:53](https://github.com/crookedlungs/pmd-utilities/blob/e95126ac0ffa3721bf6a80fcac92206614bcb3cc/src/index.ts#L53)
+Defined in: [src/index.ts:54](https://github.com/crookedlungs/pmd-utilities/blob/19500705a5dabc231662d26be5057eab6a35ebfe/src/index.ts#L54)
 
 Custom `fetch` implementation.
 
@@ -40,11 +40,23 @@ Query options
 
 `boolean` = `false`
 
-Whether to log responses or not. Defaults to false.
+Whether to log responses or not. Defaults to `false`.
 
 #### Returns
 
 `Promise`\<`any`\>
+
+#### Example
+
+```ts
+const response = await proFetchGet(
+  "https://api.example.com",
+  "users",
+  [{ field: "role", value: "admin" }, { field: "active", value: true }],
+  true
+);
+console.log(response); // Logs the filtered user data if successful.
+```
 
 ### proFetchPost()
 
@@ -76,7 +88,7 @@ The record to post.
 
 `boolean` = `false`
 
-Whether to log responses or not. Defaults to false.
+Whether to log responses or not. Defaults to `false`.
 
 #### Returns
 
@@ -86,8 +98,10 @@ Whether to log responses or not. Defaults to false.
 
 ```ts
 const response = await proFetchPost(
- "https://api.example.com",
- "submit",
- { name: "Alice", score: 42 }
+  "https://api.example.com",
+  "submit",
+  { name: "Alice", score: 42 },
+  true
 );
+console.log(response); // Logs the confirmation or resulting data from the POST request.
 ```

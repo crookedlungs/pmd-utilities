@@ -4,7 +4,7 @@
 
 > `const` **safety**: `object` = `pmd_utilities.SafetyUtilities`
 
-Defined in: [src/index.ts:61](https://github.com/crookedlungs/pmd-utilities/blob/e95126ac0ffa3721bf6a80fcac92206614bcb3cc/src/index.ts#L61)
+Defined in: [src/index.ts:62](https://github.com/crookedlungs/pmd-utilities/blob/19500705a5dabc231662d26be5057eab6a35ebfe/src/index.ts#L62)
 
 Rust-like safety integration.
 
@@ -67,6 +67,15 @@ The error to wrap in an `Err`.
 
 A `Result` of type `Err<E>`.
 
+#### Example
+
+```ts
+const result = Err("Something went wrong");
+if (!result.ok) {
+  console.error(result.error); // "Something went wrong"
+}
+```
+
 ### isValid()
 
 > **isValid**: \<`T`\>(`value`, `msg`) => `void`
@@ -102,6 +111,14 @@ Optional custom error message.
 
 Error if the value is null or undefined.
 
+#### Example
+
+```ts
+const input = getInput();
+isValid(input, "Input must be provided");
+console.log(input.length); // Safe to use now
+```
+
 ### None()
 
 > **None**: () => [`Option`](../../../../types/type-aliases/Option.md)\<`never`\>
@@ -113,6 +130,13 @@ Represents the absence of a value.
 [`Option`](../../../../types/type-aliases/Option.md)\<`never`\>
 
 An Option of kind "none".
+
+#### Example
+
+```ts
+const maybeEmpty = None();
+console.log(maybeEmpty.kind); // "none"
+```
 
 ### Ok()
 
@@ -139,6 +163,15 @@ The value to wrap in an `Ok`.
 [`Result`](../../../../types/type-aliases/Result.md)\<`T`, `never`\>
 
 A `Result` of type `Ok<T>`.
+
+#### Example
+
+```ts
+const result = Ok(42);
+if (result.ok) {
+  console.log(result.value); // 42
+}
+```
 
 ### Some()
 
@@ -167,6 +200,14 @@ The value to wrap.
 [`Option`](../../../../types/type-aliases/Option.md)\<`T`\>
 
 An Option of kind "some" containing the provided value.
+
+#### Example
+
+```ts
+const maybeName = Some("Alice");
+console.log(maybeName.kind); // "some"
+console.log(maybeName.value); // "Alice"
+```
 
 ### unwrapOr()
 
@@ -203,6 +244,13 @@ The fallback value to return if `opt` is "none".
 
 The unwrapped value if present, or the fallback.
 
+#### Example
+
+```ts
+const name = unwrapOr(Some("Bob"), "Anonymous"); // "Bob"
+const name2 = unwrapOr(None(), "Anonymous");     // "Anonymous"
+```
+
 ### unwrapResult()
 
 > **unwrapResult**: \<`T`, `E`\>(`res`) => `T`
@@ -237,3 +285,13 @@ The value if `res` is `Ok`.
 #### Throws
 
 The error if `res` is `Err`.
+
+#### Example
+
+```ts
+const result = Ok("Success!");
+const value = unwrapResult(result); // "Success!"
+
+const errorResult = Err(new Error("Oops!"));
+unwrapResult(errorResult); // throws Error: "Oops!"
+```

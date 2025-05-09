@@ -4,7 +4,7 @@
 
 > `const` **number**: `object` = `pmd_utilities.NumberUtilities`
 
-Defined in: [src/index.ts:41](https://github.com/crookedlungs/pmd-utilities/blob/e95126ac0ffa3721bf6a80fcac92206614bcb3cc/src/index.ts#L41)
+Defined in: [src/index.ts:42](https://github.com/crookedlungs/pmd-utilities/blob/19500705a5dabc231662d26be5057eab6a35ebfe/src/index.ts#L42)
 
 Number manipulation utilities.
 
@@ -29,3 +29,42 @@ The number to format.
 `string`
 
 A formatted `%` string.
+
+### genRandomInRange()
+
+> **genRandomInRange**: (`min`, `max`) => `number`
+
+Generates a random integer between the specified `min` and `max` values, inclusive.
+Ensures the result is within the whole number range using `Math.ceil` and `Math.floor`.
+
+#### Parameters
+
+##### min
+
+`number`
+
+The minimum integer value (inclusive).
+
+##### max
+
+`number`
+
+The maximum integer value (inclusive).
+
+#### Returns
+
+`number`
+
+A random integer between `min` and `max`, inclusive.
+
+#### Examples
+
+```ts
+const roll = genRandomInRange(1, 6);
+console.log(`You rolled a ${roll}`); // Output: You rolled a 3 (or any number between 1 and 6)
+```
+
+```ts
+const temperature = genRandomInRange(-10, 40);
+console.log(`Temperature: ${temperature}°C`); // Output: Temperature: 22°C (or any between -10 and 40)
+```

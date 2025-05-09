@@ -9,6 +9,7 @@ Useful helper functions for common problems including:
  - Name splitting and merging (with optional formatting)
  - Array manipulation: find, remove, update, filter, and more
  - Currency and taxes
+ - Helpers for working with images.
  - Async function helpers
  - Simple auth helpers
  - Better `fetch` implementation.
@@ -22,6 +23,7 @@ Useful helper functions for common problems including:
 - [auth](variables/auth.md)
 - [currency](variables/currency.md)
 - [dates](variables/dates.md)
+- [images](variables/images.md)
 - [names](variables/names.md)
 - [number](variables/number.md)
 - [proFetch](variables/proFetch.md)

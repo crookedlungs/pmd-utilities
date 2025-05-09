@@ -4,7 +4,7 @@
 
 > `const` **proSwitch**: `object` = `pmd_utilities.SwitchUtilities`
 
-Defined in: [src/index.ts:57](https://github.com/crookedlungs/pmd-utilities/blob/e95126ac0ffa3721bf6a80fcac92206614bcb3cc/src/index.ts#L57)
+Defined in: [src/index.ts:58](https://github.com/crookedlungs/pmd-utilities/blob/19500705a5dabc231662d26be5057eab6a35ebfe/src/index.ts#L58)
 
 Custom `switch` implementation.
 

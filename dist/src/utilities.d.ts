@@ -18,10 +18,28 @@ export declare const StringUtilities: {
  */
 declare function formatPercentString(number: number): string;
 /**
+ * Generates a random integer between the specified `min` and `max` values, inclusive.
+ * Ensures the result is within the whole number range using `Math.ceil` and `Math.floor`.
+ *
+ * @param min The minimum integer value (inclusive).
+ * @param max The maximum integer value (inclusive).
+ * @returns A random integer between `min` and `max`, inclusive.
+ *
+ * @example
+ * const roll = genRandomInRange(1, 6);
+ * console.log(`You rolled a ${roll}`); // Output: You rolled a 3 (or any number between 1 and 6)
+ *
+ * @example
+ * const temperature = genRandomInRange(-10, 40);
+ * console.log(`Temperature: ${temperature}°C`); // Output: Temperature: 22°C (or any between -10 and 40)
+ */
+declare function genRandomInRange(min: number, max: number): number;
+/**
  * Utility functions relevant to working with numbers.
  */
 export declare const NumberUtilities: {
     formatPercentString: typeof formatPercentString;
+    genRandomInRange: typeof genRandomInRange;
 };
 /**
  * Formats a number into a currency string.
@@ -39,7 +57,7 @@ declare function formatCurrency(amount: number, currency?: string): string;
 declare function calculateTax(subtotal: number, taxRate: number): number;
 /**
  * Gets the sales tax rate for a given US state code.
- * @param stateCode The 2-letter state abbreviation (e.g., 'CA', 'TX').
+ * @param state The 2-letter state abbreviation (e.g., 'CA', 'TX').
  * @returns The sales tax rate as a percentage, or `null` if not found.
  */
 declare function getTaxRateByState(state: string): number | undefined;
@@ -118,6 +136,9 @@ declare function formatNameWithPrefix(name: {
     firstName: string;
     lastName: string;
 } | string, prefix: "Mr" | "Mrs" | "Ms" | "Dr"): string;
+/**
+ * Name Utilities
+ */
 export declare const NameUtilities: {
     splitFullName: typeof splitFullName;
     mergeFullName: typeof mergeFullName;
@@ -235,16 +256,63 @@ export declare const AsyncUtilities: {
     tryCatchAsync: typeof tryCatchAsync;
 };
 /**
+ * Calculates the aspect ratio (width divided by height).
+ *
+ * @param height - The height of the element.
+ * @param width - The width of the element.
+ * @returns The aspect ratio as a number (width / height).
+ *
+ * @example
+ * const ar = getAspectRatio(1080, 1920);
+ * console.log(ar); // Output: 1.7777777777777777 (which is 16:9)
+ */
+declare function getAspectRatio(height: number, width: number): number;
+/**
+ * Calculates the width of an element from its height and aspect ratio.
+ *
+ * @param height - The height of the element.
+ * @param ar - The aspect ratio (width / height).
+ * @returns The calculated width, rounded to the nearest whole number.
+ *
+ * @example
+ * const width = getHeightFromAR(1080, 1.7777777778);
+ * console.log(width); // Output: 1920
+ */
+declare function getHeightFromAR(height: number, ar: number): number;
+/**
+ * Calculates the height of an element from its width and aspect ratio.
+ *
+ * @param width - The width of the element.
+ * @param ar - The aspect ratio (width / height).
+ * @returns The calculated height, rounded to the nearest whole number.
+ *
+ * @example
+ * const height = getWidthFromAR(1920, 1.7777777778);
+ * console.log(height); // Output: 1080
+ */
+declare function getWidthFromAR(width: number, ar: number): number;
+export declare const ImageUtilities: {
+    getWidthFromAR: typeof getWidthFromAR;
+    getHeightFromAR: typeof getHeightFromAR;
+    getAspectRatio: typeof getAspectRatio;
+};
+/**
  * Validates if the domain of an email matches the target domain.
  * @param email The email address to validate.
  * @param targetDomain The domain to check against.
  * @returns True if the email's domain matches the target domain, false otherwise.
+ * @example
+ * validateDomain("user@example.com", "example.com"); // true
+ * validateDomain("admin@other.com", "example.com"); // false
  */
 declare function validateDomain(email: string, targetDomain: string): boolean;
 /**
  * Validates if the email is in a valid format.
  * @param email The email address to validate.
  * @returns True if the email format is valid, false otherwise.
+ * @example
+ * isValidEmail("user@example.com"); // true
+ * isValidEmail("invalid-email"); // false
  */
 declare function isValidEmail(email: string): boolean;
 /**
@@ -252,6 +320,9 @@ declare function isValidEmail(email: string): boolean;
  * Uses `isStrongPassword()` to ensure password is strong. Retries if not.
  * @param length The length of the password to generate.
  * @returns A randomly generated password that is strong.
+ * @example
+ * const password = generateRandomPassword(12);
+ * console.log(password); // Example: "aA1!xYz@9Pq#"
  */
 declare function generateRandomPassword(length: number): string;
 /**
@@ -259,6 +330,9 @@ declare function generateRandomPassword(length: number): string;
  * @param password The password to check.
  * @param minLength The minimum password length. Defaults to 8.
  * @returns True if the password meets strength criteria, false otherwise.
+ * @example
+ * isStrongPassword("aB3$dEfG"); // true
+ * isStrongPassword("weakpass"); // false
  */
 declare function isStrongPassword(password: string, minLength?: number): boolean;
 /**
@@ -266,12 +340,18 @@ declare function isStrongPassword(password: string, minLength?: number): boolean
  * @param userRoles The roles assigned to the user.
  * @param requiredRole The role required for the action.
  * @returns True if the user has the required role, false otherwise.
+ * @example
+ * hasRole(["admin", "editor"], "admin"); // true
+ * hasRole(["viewer"], "editor"); // false
  */
 declare function hasRole(userRoles: string[], requiredRole: string): boolean;
 /**
  * Hashes a password asynchronously.
  * @param password The password to hash.
  * @returns The hashed password.
+ * @example
+ * const hashed = await hashPassword("SuperSecret123!");
+ * console.log(hashed); // $2b$10$...
  */
 declare function hashPassword(password: string): Promise<string>;
 /**
@@ -279,6 +359,10 @@ declare function hashPassword(password: string): Promise<string>;
  * @param password The plain password.
  * @param hashedPassword The hashed password to compare against.
  * @returns True if the passwords match, false otherwise.
+ * @example
+ * const hashed = await hashPassword("myPassword123!");
+ * const isMatch = await comparePassword("myPassword123!", hashed);
+ * console.log(isMatch); // true
  */
 declare function comparePassword(password: string, hashedPassword: string): Promise<boolean>;
 /**
@@ -298,8 +382,17 @@ export declare const AuthUtilities: {
  * @param host Host address to fetch from.
  * @param endpoint Endpoint to target.
  * @param query Query options
- * @param log Whether to log responses or not. Defaults to false.
+ * @param log Whether to log responses or not. Defaults to `false`.
  * @returns
+ *
+ * @example
+ * const response = await proFetchGet(
+ *   "https://api.example.com",
+ *   "users",
+ *   [{ field: "role", value: "admin" }, { field: "active", value: true }],
+ *   true
+ * );
+ * console.log(response); // Logs the filtered user data if successful.
  */
 declare function proFetchGet(host: string, endpoint: string, query: {
     field: string;
@@ -310,14 +403,17 @@ declare function proFetchGet(host: string, endpoint: string, query: {
  * @param host Host address to push to.
  * @param endpoint Endpoint to target.
  * @param body The record to post.
- * @param log Whether to log responses or not. Defaults to false.
+ * @param log Whether to log responses or not. Defaults to `false`.
  * @returns
  *
- * @example const response = await proFetchPost(
-  "https://api.example.com",
-  "submit",
-  { name: "Alice", score: 42 }
-);
+ * @example
+ * const response = await proFetchPost(
+ *   "https://api.example.com",
+ *   "submit",
+ *   { name: "Alice", score: 42 },
+ *   true
+ * );
+ * console.log(response); // Logs the confirmation or resulting data from the POST request.
  */
 declare function proFetchPost(host: string, endpoint: string, body: Record<string, any>, log?: boolean): Promise<any>;
 /**
@@ -380,6 +476,10 @@ declare function assert(condition: unknown, msg?: string): asserts condition;
  * @param value The value to validate.
  * @param msg Optional custom error message.
  * @throws Error if the value is null or undefined.
+ * @example
+ * const input = getInput();
+ * isValid(input, "Input must be provided");
+ * console.log(input.length); // Safe to use now
  */
 declare function isValid<T>(value: T, msg?: string): void;
 /**
@@ -390,6 +490,9 @@ declare function isValid<T>(value: T, msg?: string): void;
  * @param opt - The Option to unwrap.
  * @param fallback - The fallback value to return if `opt` is "none".
  * @returns The unwrapped value if present, or the fallback.
+ * @example
+ * const name = unwrapOr(Some("Bob"), "Anonymous"); // "Bob"
+ * const name2 = unwrapOr(None(), "Anonymous");     // "Anonymous"
  */
 declare function unwrapOr<T>(opt: Option<T>, fallback: T): T;
 /**
@@ -399,6 +502,12 @@ declare function unwrapOr<T>(opt: Option<T>, fallback: T): T;
  * @param res - The `Result` to unwrap.
  * @returns The value if `res` is `Ok`.
  * @throws The error if `res` is `Err`.
+ * @example
+ * const result = Ok("Success!");
+ * const value = unwrapResult(result); // "Success!"
+ *
+ * const errorResult = Err(new Error("Oops!"));
+ * unwrapResult(errorResult); // throws Error: "Oops!"
  */
 declare function unwrapResult<T, E>(res: Result<T, E>): T;
 /**
@@ -409,7 +518,7 @@ export declare const SafetyUtilities: {
     Some: <T>(value: T) => Option<T>;
     None: () => Option<never>;
     Err: <E>(error: E) => Result<never, E>;
-    Ok: <T_1>(value: T_1) => Result<T_1, never>;
+    Ok: <T>(value: T) => Result<T, never>;
     unwrapOr: typeof unwrapOr;
     unwrapResult: typeof unwrapResult;
     isValid: typeof isValid;

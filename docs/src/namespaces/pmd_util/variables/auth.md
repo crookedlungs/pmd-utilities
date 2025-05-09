@@ -4,7 +4,7 @@
 
 > `const` **auth**: `object` = `pmd_utilities.AuthUtilities`
 
-Defined in: [src/index.ts:49](https://github.com/crookedlungs/pmd-utilities/blob/e95126ac0ffa3721bf6a80fcac92206614bcb3cc/src/index.ts#L49)
+Defined in: [src/index.ts:50](https://github.com/crookedlungs/pmd-utilities/blob/19500705a5dabc231662d26be5057eab6a35ebfe/src/index.ts#L50)
 
 Authorization helpers.
 
@@ -36,6 +36,14 @@ The hashed password to compare against.
 
 True if the passwords match, false otherwise.
 
+#### Example
+
+```ts
+const hashed = await hashPassword("myPassword123!");
+const isMatch = await comparePassword("myPassword123!", hashed);
+console.log(isMatch); // true
+```
+
 ### generateRandomPassword()
 
 > **generateRandomPassword**: (`length`) => `string`
@@ -57,6 +65,13 @@ The length of the password to generate.
 
 A randomly generated password that is strong.
 
+#### Example
+
+```ts
+const password = generateRandomPassword(12);
+console.log(password); // Example: "aA1!xYz@9Pq#"
+```
+
 ### hashPassword()
 
 > **hashPassword**: (`password`) => `Promise`\<`string`\>
@@ -76,6 +91,13 @@ The password to hash.
 `Promise`\<`string`\>
 
 The hashed password.
+
+#### Example
+
+```ts
+const hashed = await hashPassword("SuperSecret123!");
+console.log(hashed); // $2b$10$...
+```
 
 ### hasRole()
 
@@ -103,6 +125,13 @@ The role required for the action.
 
 True if the user has the required role, false otherwise.
 
+#### Example
+
+```ts
+hasRole(["admin", "editor"], "admin"); // true
+hasRole(["viewer"], "editor"); // false
+```
+
 ### isStrongPassword()
 
 > **isStrongPassword**: (`password`, `minLength`) => `boolean`
@@ -129,6 +158,13 @@ The minimum password length. Defaults to 8.
 
 True if the password meets strength criteria, false otherwise.
 
+#### Example
+
+```ts
+isStrongPassword("aB3$dEfG"); // true
+isStrongPassword("weakpass"); // false
+```
+
 ### isValidEmail()
 
 > **isValidEmail**: (`email`) => `boolean`
@@ -148,6 +184,13 @@ The email address to validate.
 `boolean`
 
 True if the email format is valid, false otherwise.
+
+#### Example
+
+```ts
+isValidEmail("user@example.com"); // true
+isValidEmail("invalid-email"); // false
+```
 
 ### validateDomain()
 
@@ -174,3 +217,10 @@ The domain to check against.
 `boolean`
 
 True if the email's domain matches the target domain, false otherwise.
+
+#### Example
+
+```ts
+validateDomain("user@example.com", "example.com"); // true
+validateDomain("admin@other.com", "example.com"); // false
+```

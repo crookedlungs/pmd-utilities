@@ -8,6 +8,7 @@ import * as pmd_utilities from "./utilities.js";
   - Name splitting and merging (with optional formatting)
   - Array manipulation: find, remove, update, filter, and more
   - Currency and taxes
+  - Helpers for working with images.
   - Async function helpers
   - Simple auth helpers
   - Better `fetch` implementation.
@@ -59,4 +60,8 @@ export namespace pmd_util {
    * Rust-like safety integration.
    */
   export const safety = pmd_utilities.SafetyUtilities;
+  /**
+   * Image manipulation helpers.
+   */
+  export const images = pmd_utilities.ImageUtilities;
 }

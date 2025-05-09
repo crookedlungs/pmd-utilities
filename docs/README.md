@@ -8,17 +8,26 @@ A collection of reusable utility functions for strings, numbers, currency, dates
 
 ---
 
+## Note:
+
+These docs are very much still a work in progress!
+
+---
+
 ## ✨ Features
 
 - Useful helper functions for common problems including:
-  - String capitalization
-  - Simple date parsing from `MMDDYYYY`
-  - Name splitting and merging (with optional formatting)
-  - Array manipulation: find, remove, update, filter, and more
-  - Currency and taxes
-  - Async function helpers
-  - Simple auth helpers
-  - Better `fetch` implementation.
+- String capitalization
+- Simple date parsing from `MMDDYYYY`
+- Name splitting and merging (with optional formatting)
+- Array manipulation: find, remove, update, filter, and more
+- Currency and taxes
+- Helpers for working with images.
+- Async function helpers
+- Simple auth helpers
+- Better `fetch` implementation.
+- Better `switch` implementation.
+- Rust-like safety integration.
 
 ---
 
@@ -41,23 +50,27 @@ import * as pmd from "pmd-utilities";
 ### 🔤 String Utilities
 
 ```ts
-const capitalized = pmd.strings.capitalize("hello"); // "Hello"
+capitalize("hello"); // "Hello"
+```
+
+### Number Utilities
+
+```ts
+formatPercentString(10); // "10%"
 ```
 
 ### 📅 Date Utilities
 
 ```ts
-const formattedDate = pmd.dates.dateFromString("05282025"); // e.g., "5/28/2025"
+dateFromString("05282025"); // e.g., "5/28/2025"
 ```
 
 ### 👤 Name Utilities
 
 ```ts
-const nameParts = pmd.names.splitFullName("jane doe");
-// { firstName: "Jane", last_name: "Doe" }
+splitFullName("jane doe"); // { firstName: "Jane", last_name: "Doe" }
 
-const fullName = pmd.names.mergeFullName("jane", "doe");
-// "Jane Doe"
+mergeFullName("jane", "doe"); // "Jane Doe"
 ```
 
 ### 📑 Array Utilities
@@ -70,52 +83,41 @@ const users = [
 ];
 
 // Clear an array
-await pmd.arrays.clearArray(users); // users is now []
+clearArray(users); // users is now []
 
 // Remove an item by index
 const items = [1, 2, 3];
-pmd.arrays.removeAt(items, 1); // items becomes [1, 3]
+removeAt(items, 1); // items becomes [1, 3]
 
 // Find an item by property
-const found = pmd.arrays.findInArray(users, "id", 2);
-// { id: 2, name: "Bob", role: "user" }
+findInArray(users, "id", 2); // { id: 2, name: "Bob", role: "user" }
 
 // Require an item (throws if not found)
-const required = pmd.arrays.requireInArray(users, "id", 3);
-// { id: 3, name: "Carol", role: "user" }
+requireInArray(users, "id", 3); // { id: 3, name: "Carol", role: "user" }
 
 // Find index by property
-const index = pmd.arrays.findIndexInArray(users, "id", 1);
-// 0
+findIndexInArray(users, "id", 1); // 0
 
 // Remove item by property match
-const newUsers = pmd.arrays.removeFromArray(users, "id", 2);
-// users without Bob
+removeFromArray(users, "id", 2); // users without Bob
 
 // Bulk remove by property values
-const bulkRemoved = pmd.arrays.bulkRemoveFromArray(users, "id", [1, 3]);
-// users without Alice and Carol
+bulkRemoveFromArray(users, "id", [1, 3]); // users without Alice and Carol
 
 // Update an item by property match
-const updatedUsers = pmd.arrays.updateInArray(users, "id", 2, (user) => ({
+updateInArray(users, "id", 2, (user) => ({
   ...user,
   name: "Bobby",
 }));
 // Bob becomes Bobby
 
 // Bulk update by property values
-const bulkUpdated = pmd.arrays.bulkUpdateInArray(
-  users,
-  "id",
-  [1, 3],
-  (user) => ({
-    ...user,
-    role: "editor",
-  })
-);
+bulkUpdateInArray(users, "id", [1, 3], (user) => ({
+  ...user,
+  role: "editor",
+}));
 // Alice and Carol roles updated
 
 // Filter all except matching value
-const nonAdmins = pmd.arrays.allExcept(users, "role", "admin");
-// users without Alice
+allExcept(users, "role", "admin"); // users without Alice
 ```
