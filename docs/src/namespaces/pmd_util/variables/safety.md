@@ -4,7 +4,7 @@
 
 > `const` **safety**: `object` = `pmd_utilities.SafetyUtilities`
 
-Defined in: [src/index.ts:61](https://github.com/crookedlungs/pmd-utilities/blob/46cbc46e13dc37eb1ceed5549ab48780ef2516a4/src/index.ts#L61)
+Defined in: [src/index.ts:61](https://github.com/crookedlungs/pmd-utilities/blob/2594c8874d8f2180263b2be804af992d64c301e7/src/index.ts#L61)
 
 Rust-like safety integration.
 

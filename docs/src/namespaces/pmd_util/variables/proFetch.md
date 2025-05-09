@@ -4,7 +4,7 @@
 
 > `const` **proFetch**: `object` = `pmd_utilities.FetchUtilities`
 
-Defined in: [src/index.ts:53](https://github.com/crookedlungs/pmd-utilities/blob/46cbc46e13dc37eb1ceed5549ab48780ef2516a4/src/index.ts#L53)
+Defined in: [src/index.ts:53](https://github.com/crookedlungs/pmd-utilities/blob/2594c8874d8f2180263b2be804af992d64c301e7/src/index.ts#L53)
 
 Custom `fetch` implementation.
 

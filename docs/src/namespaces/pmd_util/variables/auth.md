@@ -4,7 +4,7 @@
 
 > `const` **auth**: `object` = `pmd_utilities.AuthUtilities`
 
-Defined in: [src/index.ts:49](https://github.com/crookedlungs/pmd-utilities/blob/46cbc46e13dc37eb1ceed5549ab48780ef2516a4/src/index.ts#L49)
+Defined in: [src/index.ts:49](https://github.com/crookedlungs/pmd-utilities/blob/2594c8874d8f2180263b2be804af992d64c301e7/src/index.ts#L49)
 
 Authorization helpers.
 

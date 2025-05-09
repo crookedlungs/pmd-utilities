@@ -3,7 +3,7 @@
   "out": "docs",
   "plugin": ["typedoc-plugin-markdown"],
   "theme": "markdown",
-  "readme": "README.md",
+  "readme": "./README.md",
   "excludePrivate": true,
   "excludeInternal": true,
   "excludeProtected": true,

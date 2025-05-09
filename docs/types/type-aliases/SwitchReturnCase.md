@@ -4,7 +4,7 @@
 
 > **SwitchReturnCase**\<`T`, `R`\> = `object`
 
-Defined in: [types.ts:31](https://github.com/crookedlungs/pmd-utilities/blob/46cbc46e13dc37eb1ceed5549ab48780ef2516a4/types.ts#L31)
+Defined in: [types.ts:31](https://github.com/crookedlungs/pmd-utilities/blob/2594c8874d8f2180263b2be804af992d64c301e7/types.ts#L31)
 
 Represents a case in a switch-like structure where a specific value is matched
 and returns a result of type `R` when the operation is executed.
@@ -29,7 +29,7 @@ The type of the return value from the operation.
 
 > **operation**: () => `R`
 
-Defined in: [types.ts:33](https://github.com/crookedlungs/pmd-utilities/blob/46cbc46e13dc37eb1ceed5549ab48780ef2516a4/types.ts#L33)
+Defined in: [types.ts:33](https://github.com/crookedlungs/pmd-utilities/blob/2594c8874d8f2180263b2be804af992d64c301e7/types.ts#L33)
 
 The function to execute when this case is matched, returning a value of type `R`.
 
@@ -43,6 +43,6 @@ The function to execute when this case is matched, returning a value of type `R`
 
 > **value**: `T`
 
-Defined in: [types.ts:32](https://github.com/crookedlungs/pmd-utilities/blob/46cbc46e13dc37eb1ceed5549ab48780ef2516a4/types.ts#L32)
+Defined in: [types.ts:32](https://github.com/crookedlungs/pmd-utilities/blob/2594c8874d8f2180263b2be804af992d64c301e7/types.ts#L32)
 
 The value to be checked against.
