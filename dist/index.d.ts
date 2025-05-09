@@ -35,4 +35,16 @@ export declare namespace pmd_util {
     const number: {
         formatPercentString: (number: number) => string;
     };
+    const async: {
+        tryCatchAsync: <T>(asyncFunc: () => Promise<T>, fallback: T) => Promise<T>;
+    };
+    const auth: {
+        generateRandomPassword: (length: number) => string;
+        validateDomain: (email: string, targetDomain: string) => boolean;
+        isValidEmail: (email: string) => boolean;
+        isStrongPassword: (password: string, minLength?: number) => boolean;
+        hasRole: (userRoles: string[], requiredRole: string) => boolean;
+        comparePassword: (password: string, hashedPassword: string) => Promise<boolean>;
+        hashPassword: (password: string) => Promise<string>;
+    };
 }

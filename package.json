@@ -1,6 +1,6 @@
 {
   "name": "@pathmaker-digital/pmd-utilities",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A lightweight and modular collection of utility functions for working with strings, dates, names, and arrays in TypeScript and JavaScript.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -31,12 +31,21 @@
     "formatting",
     "dates",
     "arrays",
-    "tools"
+    "tools",
+    "auth",
+    "hashing",
+    "passwords"
   ],
   "author": "crookedlungs",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/crookedlungs/pmd-utilities/issues"
   },
-  "homepage": "https://github.com/crookedlungs/pmd-utilities#readme"
+  "homepage": "https://github.com/crookedlungs/pmd-utilities#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2"
+  }
 }

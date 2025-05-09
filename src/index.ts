@@ -7,4 +7,6 @@ export namespace pmd_util {
   export const arrays = pmd_utilities.ArrayUtilities;
   export const currency = pmd_utilities.CurrencyUtilities;
   export const number = pmd_utilities.NumberUtilities;
+  export const async = pmd_utilities.AsyncUtilities;
+  export const auth = pmd_utilities.AuthUtilities;
 }

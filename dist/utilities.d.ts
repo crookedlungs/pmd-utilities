@@ -212,4 +212,69 @@ export declare const ArrayUtilities: {
     updateInArray: typeof updateInArray;
     bulkUpdateInArray: typeof bulkUpdateInArray;
 };
+/**
+ * Wraps the function passed to `asyncFunc` in a try/catch block to reduce boilerplate code.
+ * @param asyncFunc The function to wrap in the try/catch.
+ * @param fallback Custom fallback value or error message.
+ * @returns A promise determined by the input function.
+ */
+declare function tryCatchAsync<T>(asyncFunc: () => Promise<T>, fallback: T): Promise<T>;
+export declare const AsyncUtilities: {
+    tryCatchAsync: typeof tryCatchAsync;
+};
+/**
+ * Validates if the domain of an email matches the target domain.
+ * @param email The email address to validate.
+ * @param targetDomain The domain to check against.
+ * @returns True if the email's domain matches the target domain, false otherwise.
+ */
+declare function validateDomain(email: string, targetDomain: string): boolean;
+/**
+ * Validates if the email is in a valid format.
+ * @param email The email address to validate.
+ * @returns True if the email format is valid, false otherwise.
+ */
+declare function isValidEmail(email: string): boolean;
+/**
+ * Generates a random password with a given length, ensuring it meets the strength criteria.
+ * @param length The length of the password to generate.
+ * @returns A randomly generated password that is strong.
+ */
+declare function generateRandomPassword(length: number): string;
+/**
+ * Validates if the password is strong.
+ * @param password The password to check.
+ * @param minLength The minimum password length. Defaults to 8.
+ * @returns True if the password meets strength criteria, false otherwise.
+ */
+declare function isStrongPassword(password: string, minLength?: number): boolean;
+/**
+ * Checks if a user has the required role.
+ * @param userRoles The roles assigned to the user.
+ * @param requiredRole The role required for the action.
+ * @returns True if the user has the required role, false otherwise.
+ */
+declare function hasRole(userRoles: string[], requiredRole: string): boolean;
+/**
+ * Hashes a password asynchronously.
+ * @param password The password to hash.
+ * @returns The hashed password.
+ */
+declare function hashPassword(password: string): Promise<string>;
+/**
+ * Compares a plain password with a hashed password.
+ * @param password The plain password.
+ * @param hashedPassword The hashed password to compare against.
+ * @returns True if the passwords match, false otherwise.
+ */
+declare function comparePassword(password: string, hashedPassword: string): Promise<boolean>;
+export declare const AuthUtilities: {
+    generateRandomPassword: typeof generateRandomPassword;
+    validateDomain: typeof validateDomain;
+    isValidEmail: typeof isValidEmail;
+    isStrongPassword: typeof isStrongPassword;
+    hasRole: typeof hasRole;
+    comparePassword: typeof comparePassword;
+    hashPassword: typeof hashPassword;
+};
 export {};

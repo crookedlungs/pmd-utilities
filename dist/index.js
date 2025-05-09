@@ -7,4 +7,6 @@ export var pmd_util;
     pmd_util.arrays = pmd_utilities.ArrayUtilities;
     pmd_util.currency = pmd_utilities.CurrencyUtilities;
     pmd_util.number = pmd_utilities.NumberUtilities;
+    pmd_util.async = pmd_utilities.AsyncUtilities;
+    pmd_util.auth = pmd_utilities.AuthUtilities;
 })(pmd_util || (pmd_util = {}));

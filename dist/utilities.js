@@ -1,4 +1,5 @@
 import { stateTaxRates } from "./data/us-tax-rates.js";
+import bcrypt from "bcrypt";
 // String Functions
 /**
  * Converts or ensures a word is capitalized.
@@ -272,4 +273,122 @@ export const ArrayUtilities = {
     bulkRemoveFromArray,
     updateInArray,
     bulkUpdateInArray,
+};
+// Async Utilities
+/**
+ * Wraps the function passed to `asyncFunc` in a try/catch block to reduce boilerplate code.
+ * @param asyncFunc The function to wrap in the try/catch.
+ * @param fallback Custom fallback value or error message.
+ * @returns A promise determined by the input function.
+ */
+async function tryCatchAsync(asyncFunc, fallback) {
+    try {
+        return await asyncFunc();
+    }
+    catch (error) {
+        console.error("Error occurred:", error);
+        return fallback;
+    }
+}
+export const AsyncUtilities = { tryCatchAsync };
+// Auth Utilities
+/**
+ * Validates if the domain of an email matches the target domain.
+ * @param email The email address to validate.
+ * @param targetDomain The domain to check against.
+ * @returns True if the email's domain matches the target domain, false otherwise.
+ */
+function validateDomain(email, targetDomain) {
+    if (isValidEmail(email)) {
+        // Check if the email contains exactly one "@" symbol
+        const atIndex = email.indexOf("@");
+        if (atIndex === -1 || atIndex !== email.lastIndexOf("@")) {
+            return false; // Invalid email format
+        }
+        const domain = email.slice(atIndex + 1); // Extract domain after "@"
+        return domain.toLowerCase() === targetDomain.toLowerCase(); // Compare domains case-insensitively}
+    }
+    else {
+        return false; // Email is invalid
+    }
+}
+/**
+ * Validates if the email is in a valid format.
+ * @param email The email address to validate.
+ * @returns True if the email format is valid, false otherwise.
+ */
+function isValidEmail(email) {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+}
+/**
+ * Generates a random password with a given length, ensuring it meets the strength criteria.
+ * @param length The length of the password to generate.
+ * @returns A randomly generated password that is strong.
+ */
+function generateRandomPassword(length) {
+    const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
+    let password = "";
+    // Regenerate password if it's not strong enough
+    do {
+        password = "";
+        for (let i = 0; i < length; i++) {
+            const randomIndex = Math.floor(Math.random() * charset.length);
+            password += charset[randomIndex];
+        }
+    } while (!isStrongPassword(password));
+    return password;
+}
+/**
+ * Validates if the password is strong.
+ * @param password The password to check.
+ * @param minLength The minimum password length. Defaults to 8.
+ * @returns True if the password meets strength criteria, false otherwise.
+ */
+function isStrongPassword(password, minLength = 8) {
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumbers = /\d/.test(password);
+    const hasSpecialChars = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    return (password.length >= minLength &&
+        hasUpperCase &&
+        hasLowerCase &&
+        hasNumbers &&
+        hasSpecialChars);
+}
+/**
+ * Checks if a user has the required role.
+ * @param userRoles The roles assigned to the user.
+ * @param requiredRole The role required for the action.
+ * @returns True if the user has the required role, false otherwise.
+ */
+function hasRole(userRoles, requiredRole) {
+    return userRoles.includes(requiredRole);
+}
+/**
+ * Hashes a password asynchronously.
+ * @param password The password to hash.
+ * @returns The hashed password.
+ */
+async function hashPassword(password) {
+    const saltRounds = 10;
+    return await bcrypt.hash(password, saltRounds);
+}
+/**
+ * Compares a plain password with a hashed password.
+ * @param password The plain password.
+ * @param hashedPassword The hashed password to compare against.
+ * @returns True if the passwords match, false otherwise.
+ */
+async function comparePassword(password, hashedPassword) {
+    return await bcrypt.compare(password, hashedPassword);
+}
+export const AuthUtilities = {
+    generateRandomPassword,
+    validateDomain,
+    isValidEmail,
+    isStrongPassword,
+    hasRole,
+    comparePassword,
+    hashPassword,
 };

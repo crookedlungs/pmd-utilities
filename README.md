@@ -12,6 +12,8 @@ A lightweight and modular collection of utility functions for working with **str
   - Name splitting and merging (with optional formatting)
   - Array manipulation: find, remove, update, filter, and more
   - Currency and taxes
+  - Async function helpers
+  - Simple auth helpers
 
 ---
 
