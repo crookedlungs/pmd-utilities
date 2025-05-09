@@ -64,4 +64,8 @@ export namespace pmd_util {
    * Image manipulation helpers.
    */
   export const images = pmd_utilities.ImageUtilities;
+  /**
+   * Helpers to improve performance.
+   */
+  export const performance = pmd_utilities.PerformanceUtilities;
 }

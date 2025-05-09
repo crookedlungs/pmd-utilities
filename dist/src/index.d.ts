@@ -26,6 +26,8 @@ export declare namespace pmd_util {
      */
     const dates: {
         dateFromString: (input: string, locale?: string) => string;
+        isSameDay: (date1: Date, date2: Date) => boolean;
+        getTimeAgo: (timestamp: number) => string;
     };
     /**
      * Name manipulation utilities.
@@ -71,6 +73,7 @@ export declare namespace pmd_util {
      * Number manipulation utilities.
      */
     const number: {
+        clamp: (value: number, min?: number, max?: number) => number;
         formatPercentString: (number: number) => string;
         genRandomInRange: (min: number, max: number) => number;
     };
@@ -129,5 +132,13 @@ export declare namespace pmd_util {
         getWidthFromAR: (width: number, ar: number) => number;
         getHeightFromAR: (height: number, ar: number) => number;
         getAspectRatio: (height: number, width: number) => number;
+    };
+    /**
+     * Helpers to improve performance.
+     */
+    const performance: {
+        debounce: (fn: Function, wait: number) => (...args: any[]) => void;
+        wait: (ms: number) => Promise<void>;
+        throttle: (fn: Function, wait: number) => (...args: any[]) => void;
     };
 }

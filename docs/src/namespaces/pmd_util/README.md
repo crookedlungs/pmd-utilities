@@ -1,4 +1,4 @@
-[**@pathmaker-digital/pmd-utilities v2.0.4**](../../../README.md)
+[**@pathmaker-digital/pmd-utilities v2.0.5**](../../../README.md)
 
 ***
 
@@ -26,6 +26,7 @@ Useful helper functions for common problems including:
 - [images](variables/images.md)
 - [names](variables/names.md)
 - [number](variables/number.md)
+- [performance](variables/performance.md)
 - [proFetch](variables/proFetch.md)
 - [proSwitch](variables/proSwitch.md)
 - [safety](variables/safety.md)

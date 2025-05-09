@@ -1,4 +1,4 @@
-[**@pathmaker-digital/pmd-utilities v2.0.4**](README.md)
+[**@pathmaker-digital/pmd-utilities v2.0.5**](README.md)
 
 ***
 

@@ -1,4 +1,4 @@
-import { type SwitchCase, type DefaultCase, type SwitchReturnCase, type DefaultReturnCase, type Result, type Option } from "../types.js";
+import { type SwitchCase, type DefaultCase, type SwitchReturnCase, type DefaultReturnCase, type Result, type Option } from "../types";
 /**
  * Converts or ensures a word is capitalized.
  * @param word The word to capitalize.
@@ -13,6 +13,16 @@ declare function capitalize(word: string): string;
 export declare const StringUtilities: {
     capitalize: typeof capitalize;
 };
+/**
+ * Clamps a value in between a specified minimum and maximum value.
+ * @param value The value to clamp.
+ * @param min The minimum allowed value. Defaults to `0`.
+ * @param max The maximum allowed value. Defaults to `100`.
+ * @returns The number clamped between the `min` and `max`.
+ * @example
+ * clamp(100, 0, 50) // 50
+ */
+declare function clamp(value: number, min?: number, max?: number): number;
 /**
  * Formats a `number` as a `string` with a `%` sign suffix.
  * @param number The number to format.
@@ -42,6 +52,7 @@ declare function genRandomInRange(min: number, max: number): number;
  * Utility functions relevant to working with numbers.
  */
 export declare const NumberUtilities: {
+    clamp: typeof clamp;
     formatPercentString: typeof formatPercentString;
     genRandomInRange: typeof genRandomInRange;
 };
@@ -56,36 +67,71 @@ export declare const NumberUtilities: {
 declare function formatCurrency(amount: number, currency?: string): string;
 /**
  * Calculates the tax amount for a given subtotal and tax rate.
+ *
  * @param subtotal The pre-tax amount.
  * @param taxRate The tax rate as a percentage (e.g., 8.25 for 8.25%).
- * @returns The tax amount.
+ * @returns The tax amount, rounded to 2 decimal places.
+ *
+ * @example
+ * const tax = calculateTax(100, 8.25);
+ * console.log(tax); // Output: 8.25
  */
 declare function calculateTax(subtotal: number, taxRate: number): number;
 /**
  * Gets the sales tax rate for a given US state code.
+ *
  * @param state The 2-letter state abbreviation (e.g., 'CA', 'TX').
- * @returns The sales tax rate as a percentage, or `null` if not found.
+ * @returns The sales tax rate as a percentage, or `undefined` if not found.
+ *
+ * @example
+ * const rate = getTaxRateByState("TX");
+ * console.log(rate); // Output: 6.25 (if defined in stateTaxRates)
  */
 declare function getTaxRateByState(state: string): number | undefined;
 /**
  * Calculates the total amount after applying tax.
+ *
  * @param subtotal The original amount before tax.
  * @param taxRate The tax rate as a percentage.
- * @returns The total amount including tax.
+ * @returns The total amount including tax, rounded to 2 decimal places.
+ *
+ * @example
+ * const total = calculateTotalWithTax(100, 8.25);
+ * console.log(total); // Output: 108.25
  */
 declare function calculateTotalWithTax(subtotal: number, taxRate: number): number;
 /**
  * Parses a currency string (like "$1,234.56") into a number.
+ *
  * @param currencyString The formatted currency string.
- * @returns A number value.
+ * @returns A numeric value extracted from the string.
+ *
+ * @example
+ * const amount = parseCurrency("$1,234.56");
+ * console.log(amount); // Output: 1234.56
+ *
+ * @example
+ * const negative = parseCurrency("($500.00)");
+ * console.log(negative); // Output: -500 (if formatted correctly)
  */
 declare function parseCurrency(currencyString: string): number;
 /**
  * Converts an amount from one currency rate to another.
+ *
  * @param amount The amount to convert.
- * @param fromRate The rate of the original currency.
- * @param toRate The rate of the target currency.
- * @returns The converted amount.
+ * @param fromRate The exchange rate of the original currency (e.g., USD).
+ * @param toRate The exchange rate of the target currency (e.g., EUR).
+ * @returns The converted amount rounded to 2 decimal places.
+ *
+ * @example
+ * // Convert $10 USD to EUR, where 1 USD = 1 and 1 EUR = 0.85
+ * const converted = convertCurrency(10, 1, 0.85);
+ * console.log(converted); // Output: 8.5
+ *
+ * @example
+ * // Convert 100 GBP to JPY, where 1 GBP = 1.2 and 1 JPY = 0.0075
+ * const yen = convertCurrency(100, 1.2, 0.0075);
+ * console.log(yen); // Output: 0.63
  */
 declare function convertCurrency(amount: number, fromRate: number, toRate: number): number;
 /**
@@ -107,10 +153,33 @@ export declare const CurrencyUtilities: {
  */
 declare function dateFromString(input: string, locale?: string): string;
 /**
+ * Checks if two Date objects fall on the same calendar day.
+ * @param date1 The first date.
+ * @param date2 The second date.
+ * @returns `true` if both dates are on the same day, otherwise `false`.
+ *
+ * @example
+ * const result = isSameDay(new Date('2024-05-01'), new Date('2024-05-01'));
+ * // result === true
+ */
+declare function isSameDay(date1: Date, date2: Date): boolean;
+/**
+ * Converts a timestamp to a human-readable relative time string.
+ * @param timestamp The timestamp in milliseconds.
+ * @returns A string like "just now", "5 minutes ago", "2 hours ago", etc.
+ *
+ * @example
+ * const msg = getTimeAgo(Date.now() - 60000); // 1 minute ago
+ * // msg === "1 minute ago"
+ */
+declare function getTimeAgo(timestamp: number): string;
+/**
  * Utility functions relevant to working with dates.
  */
 export declare const DateUtilities: {
     dateFromString: typeof dateFromString;
+    isSameDay: typeof isSameDay;
+    getTimeAgo: typeof getTimeAgo;
 };
 /**
  * Takes a full name as `string` and returns it as an object containing
@@ -528,5 +597,52 @@ export declare const SafetyUtilities: {
     unwrapOr: typeof unwrapOr;
     unwrapResult: typeof unwrapResult;
     isValid: typeof isValid;
+};
+/**
+ * Creates a throttled function that only invokes the provided function at most once every `wait` milliseconds.
+ * If the function is invoked multiple times in quick succession, only the first call in the given `wait` period will be executed.
+ *
+ * @param fn The function to throttle.
+ * @param wait The number of milliseconds to wait between invocations.
+ * @returns A throttled function.
+ *
+ * @example
+ * const throttledLog = throttle((message: string) => console.log(message), 1000);
+ * throttledLog("Hello"); // Will log "Hello"
+ * throttledLog("World"); // Will be ignored because it's within the 1000ms window.
+ */
+declare function throttle(fn: Function, wait: number): (...args: any[]) => void;
+/**
+ * Returns a promise that resolves after a specified number of milliseconds.
+ * This is useful for delaying actions in asynchronous code.
+ *
+ * @param ms The number of milliseconds to wait before resolving.
+ * @returns A promise that resolves after the given `ms`.
+ *
+ * @example
+ * await wait(2000); // Waits for 2 seconds before continuing
+ * console.log("This will print after 2 seconds");
+ */
+declare function wait(ms: number): Promise<void>;
+/**
+ * Creates a debounced function that delays the invocation of the provided function
+ * until after the specified `wait` time has passed since the last time it was invoked.
+ *
+ * @param fn The function to debounce.
+ * @param wait The number of milliseconds to wait before calling the function.
+ * @returns A debounced function.
+ *
+ * @example
+ * const debouncedLog = debounce((message: string) => console.log(message), 500);
+ * debouncedLog("Hello"); // Will log "Hello" after 500ms if no other calls happen in that time.
+ */
+declare function debounce(fn: Function, wait: number): (...args: any[]) => void;
+/**
+ * Performance Utilities
+ */
+export declare const PerformanceUtilities: {
+    debounce: typeof debounce;
+    wait: typeof wait;
+    throttle: typeof throttle;
 };
 export {};

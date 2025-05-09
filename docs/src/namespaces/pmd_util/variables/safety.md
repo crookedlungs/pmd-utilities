@@ -1,10 +1,10 @@
-[**@pathmaker-digital/pmd-utilities v2.0.4**](../../../../README.md)
+[**@pathmaker-digital/pmd-utilities v2.0.5**](../../../../README.md)
 
 ***
 
 > `const` **safety**: `object` = `pmd_utilities.SafetyUtilities`
 
-Defined in: [src/index.ts:62](https://github.com/crookedlungs/pmd-utilities/blob/b257efe87df84203e61d3fe57b7510d8a3632920/src/index.ts#L62)
+Defined in: [src/index.ts:62](https://github.com/crookedlungs/pmd-utilities/blob/96f5fb3e3aec03fa6f71925b0e0fb0eacad84699/src/index.ts#L62)
 
 Rust-like safety integration.
 
@@ -99,7 +99,7 @@ The value to validate.
 
 ##### msg
 
-`string` = `"value is invalid!"`
+`string` = `"Value is invalid!"`
 
 Optional custom error message.
 

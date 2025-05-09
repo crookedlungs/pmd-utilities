@@ -1,10 +1,10 @@
-[**@pathmaker-digital/pmd-utilities v2.0.4**](../../../../README.md)
+[**@pathmaker-digital/pmd-utilities v2.0.5**](../../../../README.md)
 
 ***
 
 > `const` **currency**: `object` = `pmd_utilities.CurrencyUtilities`
 
-Defined in: [src/index.ts:38](https://github.com/crookedlungs/pmd-utilities/blob/b257efe87df84203e61d3fe57b7510d8a3632920/src/index.ts#L38)
+Defined in: [src/index.ts:38](https://github.com/crookedlungs/pmd-utilities/blob/96f5fb3e3aec03fa6f71925b0e0fb0eacad84699/src/index.ts#L38)
 
 Currency manipulation utilities.
 
@@ -34,7 +34,14 @@ The tax rate as a percentage (e.g., 8.25 for 8.25%).
 
 `number`
 
-The tax amount.
+The tax amount, rounded to 2 decimal places.
+
+#### Example
+
+```ts
+const tax = calculateTax(100, 8.25);
+console.log(tax); // Output: 8.25
+```
 
 ### calculateTotalWithTax()
 
@@ -60,7 +67,14 @@ The tax rate as a percentage.
 
 `number`
 
-The total amount including tax.
+The total amount including tax, rounded to 2 decimal places.
+
+#### Example
+
+```ts
+const total = calculateTotalWithTax(100, 8.25);
+console.log(total); // Output: 108.25
+```
 
 ### convertCurrency()
 
@@ -80,19 +94,33 @@ The amount to convert.
 
 `number`
 
-The rate of the original currency.
+The exchange rate of the original currency (e.g., USD).
 
 ##### toRate
 
 `number`
 
-The rate of the target currency.
+The exchange rate of the target currency (e.g., EUR).
 
 #### Returns
 
 `number`
 
-The converted amount.
+The converted amount rounded to 2 decimal places.
+
+#### Examples
+
+```ts
+// Convert $10 USD to EUR, where 1 USD = 1 and 1 EUR = 0.85
+const converted = convertCurrency(10, 1, 0.85);
+console.log(converted); // Output: 8.5
+```
+
+```ts
+// Convert 100 GBP to JPY, where 1 GBP = 1.2 and 1 JPY = 0.0075
+const yen = convertCurrency(100, 1.2, 0.0075);
+console.log(yen); // Output: 0.63
+```
 
 ### formatCurrency()
 
@@ -144,7 +172,14 @@ The 2-letter state abbreviation (e.g., 'CA', 'TX').
 
 `undefined` \| `number`
 
-The sales tax rate as a percentage, or `null` if not found.
+The sales tax rate as a percentage, or `undefined` if not found.
+
+#### Example
+
+```ts
+const rate = getTaxRateByState("TX");
+console.log(rate); // Output: 6.25 (if defined in stateTaxRates)
+```
 
 ### parseCurrency()
 
@@ -164,4 +199,16 @@ The formatted currency string.
 
 `number`
 
-A number value.
+A numeric value extracted from the string.
+
+#### Examples
+
+```ts
+const amount = parseCurrency("$1,234.56");
+console.log(amount); // Output: 1234.56
+```
+
+```ts
+const negative = parseCurrency("($500.00)");
+console.log(negative); // Output: -500 (if formatted correctly)
+```

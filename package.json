@@ -1,6 +1,6 @@
 {
   "name": "@pathmaker-digital/pmd-utilities",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "A lightweight and modular collection of utility functions for working with strings, dates, names, and more in TypeScript and JavaScript.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -16,10 +16,17 @@
     "README.md",
     "LICENSE"
   ],
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    }
+  },
   "scripts": {
     "build": "tsc",
     "push": "npm publish --access public",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -49,6 +56,9 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
+    "@types/jest": "^29.5.14",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.3.2",
     "typedoc": "^0.28.4",
     "typedoc-plugin-markdown": "^4.6.3"
   }

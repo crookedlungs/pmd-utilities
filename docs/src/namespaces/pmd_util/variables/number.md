@@ -1,14 +1,52 @@
-[**@pathmaker-digital/pmd-utilities v2.0.4**](../../../../README.md)
+[**@pathmaker-digital/pmd-utilities v2.0.5**](../../../../README.md)
 
 ***
 
 > `const` **number**: `object` = `pmd_utilities.NumberUtilities`
 
-Defined in: [src/index.ts:42](https://github.com/crookedlungs/pmd-utilities/blob/b257efe87df84203e61d3fe57b7510d8a3632920/src/index.ts#L42)
+Defined in: [src/index.ts:42](https://github.com/crookedlungs/pmd-utilities/blob/96f5fb3e3aec03fa6f71925b0e0fb0eacad84699/src/index.ts#L42)
 
 Number manipulation utilities.
 
 ## Type declaration
+
+### clamp()
+
+> **clamp**: (`value`, `min`, `max`) => `number`
+
+Clamps a value in between a specified minimum and maximum value.
+
+#### Parameters
+
+##### value
+
+`number`
+
+The value to clamp.
+
+##### min
+
+`number` = `0`
+
+The minimum allowed value. Defaults to `0`.
+
+##### max
+
+`number` = `100`
+
+The maximum allowed value. Defaults to `100`.
+
+#### Returns
+
+`number`
+
+The number clamped between the `min` and `max`.
+
+#### Example
+
+```ts
+clamp(100, 0, 50) // 50
+```
 
 ### formatPercentString()
 
