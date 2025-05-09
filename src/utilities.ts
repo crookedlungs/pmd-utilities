@@ -1,3 +1,5 @@
+import { stateTaxRates } from "./data/us-tax-rates.js";
+
 // String Functions
 
 /**
@@ -16,14 +18,108 @@ function capitalize(word: string): string {
  */
 export const StringUtilities = { capitalize };
 
+// Numbers
+
+/**
+ * Formats a `number` as a `string` with a `%` sign suffix.
+ * @param number The number to format.
+ * @returns A formatted `%` string.
+ */
+function formatPercentString(number: number): string {
+  return `${number}%`;
+}
+
+/**
+ * Utility functions relevant to working with numbers.
+ */
+export const NumberUtilities = { formatPercentString };
+
+// Currency
+
+/**
+ * Formats a number into a currency string.
+ * @param amount The number to convert.
+ * @param currency The currency symbol to prefix.
+ * @returns A formatted string like "$5.00"
+ */
+function formatCurrency(amount: number, currency: string = "$"): string {
+  return `${currency}${amount.toFixed(2)}`;
+}
+
+/**
+ * Calculates the tax amount for a given subtotal and tax rate.
+ * @param subtotal The pre-tax amount.
+ * @param taxRate The tax rate as a percentage (e.g., 8.25 for 8.25%).
+ * @returns The tax amount.
+ */
+function calculateTax(subtotal: number, taxRate: number): number {
+  return +(subtotal * (taxRate / 100)).toFixed(2);
+}
+
+/**
+ * Gets the sales tax rate for a given US state code.
+ * @param stateCode The 2-letter state abbreviation (e.g., 'CA', 'TX').
+ * @returns The sales tax rate as a percentage, or `null` if not found.
+ */
+function getTaxRateByState(state: string): number | undefined {
+  return stateTaxRates[state as keyof typeof stateTaxRates];
+}
+
+/**
+ * Calculates the total amount after applying tax.
+ * @param subtotal The original amount before tax.
+ * @param taxRate The tax rate as a percentage.
+ * @returns The total amount including tax.
+ */
+function calculateTotalWithTax(subtotal: number, taxRate: number): number {
+  return +(subtotal + calculateTax(subtotal, taxRate)).toFixed(2);
+}
+
+/**
+ * Parses a currency string (like "$1,234.56") into a number.
+ * @param currencyString The formatted currency string.
+ * @returns A number value.
+ */
+function parseCurrency(currencyString: string): number {
+  return parseFloat(currencyString.replace(/[^0-9.-]+/g, ""));
+}
+
+/**
+ * Converts an amount from one currency rate to another.
+ * @param amount The amount to convert.
+ * @param fromRate The rate of the original currency.
+ * @param toRate The rate of the target currency.
+ * @returns The converted amount.
+ */
+function convertCurrency(
+  amount: number,
+  fromRate: number,
+  toRate: number
+): number {
+  return +(amount * (toRate / fromRate)).toFixed(2);
+}
+
+/**
+ * Utility functions relevant to working with currency.
+ */
+export const CurrencyUtilities = {
+  formatCurrency,
+  calculateTax,
+  calculateTotalWithTax,
+  parseCurrency,
+  convertCurrency,
+  getTaxRateByState,
+};
+
 // Date Functions
 
 /**
  * Parses a date from mmddyyy format into a JS `Date` locale string.
  * @param input A date in mmddyyyy format.
+ * @param locale The locale to use for formatting. Defaults to `en-US`.
  * @returns A `Date` locale string.
  */
-function dateFromString(input: string) {
+function dateFromString(input: string, locale: string = "en-US") {
   const month = input.slice(0, 2);
   const day = input.slice(2, 4);
   const year = input.slice(4, 8);
@@ -32,9 +128,12 @@ function dateFromString(input: string) {
   const date = new Date(Number(year), Number(month) - 1, Number(day));
 
   // Format as a string
-  return date.toLocaleDateString("en-US");
+  return date.toLocaleDateString(locale);
 }
 
+/**
+ * Utility functions relevant to working with dates.
+ */
 export const DateUtilities = { dateFromString };
 
 // Name Functions

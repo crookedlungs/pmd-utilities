@@ -1,6 +1,6 @@
 # 🧰 Pathmaker Digital Utility Toolkit
 
-A lightweight and modular collection of utility functions for working with **strings**, **dates**, **names**, and **arrays** in TypeScript and JavaScript.
+A lightweight and modular collection of utility functions for working with **strings**, **numbers**, **dates**, **names**, **currency**, **taxes** and **arrays** in TypeScript and JavaScript.
 
 ---
 
@@ -11,13 +11,14 @@ A lightweight and modular collection of utility functions for working with **str
   - Simple date parsing from `MMDDYYYY`
   - Name splitting and merging (with optional formatting)
   - Array manipulation: find, remove, update, filter, and more
+  - Currency and taxes
 
 ---
 
 ## 📦 Installation
 
 ```bash
-npm install pmd-utilities
+npm i @pathmaker-digital/pmd-utilities
 ```
 
 ---
