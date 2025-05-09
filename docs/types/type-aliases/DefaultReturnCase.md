@@ -1,10 +1,10 @@
-[**@pathmaker-digital/pmd-utilities v2.0.2**](../../README.md)
+[**@pathmaker-digital/pmd-utilities v2.0.4**](../../README.md)
 
 ***
 
 > **DefaultReturnCase**\<`R`\> = `object`
 
-Defined in: [types.ts:43](https://github.com/crookedlungs/pmd-utilities/blob/19500705a5dabc231662d26be5057eab6a35ebfe/types.ts#L43)
+Defined in: [types.ts:43](https://github.com/crookedlungs/pmd-utilities/blob/9f39d32abe09ed42c70c16473f8a612f4d8491bd/types.ts#L43)
 
 Represents the default case in a switch-like structure, with a return value of type `R`.
 This case is executed if none of the other cases match.
@@ -23,7 +23,7 @@ The type of the return value from the operation.
 
 > **default**: `true`
 
-Defined in: [types.ts:44](https://github.com/crookedlungs/pmd-utilities/blob/19500705a5dabc231662d26be5057eab6a35ebfe/types.ts#L44)
+Defined in: [types.ts:44](https://github.com/crookedlungs/pmd-utilities/blob/9f39d32abe09ed42c70c16473f8a612f4d8491bd/types.ts#L44)
 
 A flag to indicate that this is the default case.
 
@@ -33,7 +33,7 @@ A flag to indicate that this is the default case.
 
 > **operation**: () => `R`
 
-Defined in: [types.ts:45](https://github.com/crookedlungs/pmd-utilities/blob/19500705a5dabc231662d26be5057eab6a35ebfe/types.ts#L45)
+Defined in: [types.ts:45](https://github.com/crookedlungs/pmd-utilities/blob/9f39d32abe09ed42c70c16473f8a612f4d8491bd/types.ts#L45)
 
 The function to execute when the default case is selected, returning a value of type `R`.
 

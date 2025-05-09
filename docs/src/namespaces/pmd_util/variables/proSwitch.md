@@ -1,10 +1,10 @@
-[**@pathmaker-digital/pmd-utilities v2.0.2**](../../../../README.md)
+[**@pathmaker-digital/pmd-utilities v2.0.4**](../../../../README.md)
 
 ***
 
 > `const` **proSwitch**: `object` = `pmd_utilities.SwitchUtilities`
 
-Defined in: [src/index.ts:58](https://github.com/crookedlungs/pmd-utilities/blob/19500705a5dabc231662d26be5057eab6a35ebfe/src/index.ts#L58)
+Defined in: [src/index.ts:58](https://github.com/crookedlungs/pmd-utilities/blob/9f39d32abe09ed42c70c16473f8a612f4d8491bd/src/index.ts#L58)
 
 Custom `switch` implementation.
 

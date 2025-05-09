@@ -1,10 +1,10 @@
-[**@pathmaker-digital/pmd-utilities v2.0.2**](../../README.md)
+[**@pathmaker-digital/pmd-utilities v2.0.4**](../../README.md)
 
 ***
 
 > **Result**\<`T`, `E`\> = \{ `ok`: `true`; `value`: `T`; \} \| \{ `error`: `E`; `ok`: `false`; \}
 
-Defined in: [types.ts:71](https://github.com/crookedlungs/pmd-utilities/blob/19500705a5dabc231662d26be5057eab6a35ebfe/types.ts#L71)
+Defined in: [types.ts:71](https://github.com/crookedlungs/pmd-utilities/blob/9f39d32abe09ed42c70c16473f8a612f4d8491bd/types.ts#L71)
 
 A export type that represents the result of an operation that may succeed (`Ok`) or fail (`Err`).
 

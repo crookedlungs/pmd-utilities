@@ -15,6 +15,8 @@ import bcrypt from "bcrypt";
  * Converts or ensures a word is capitalized.
  * @param word The word to capitalize.
  * @returns The capitalized version of the `word` parameter.
+ * @example
+ * capitalize("hello"); // "Hello"
  */
 function capitalize(word: string): string {
   let out = word.slice(0, 1);
@@ -33,6 +35,8 @@ export const StringUtilities = { capitalize };
  * Formats a `number` as a `string` with a `%` sign suffix.
  * @param number The number to format.
  * @returns A formatted `%` string.
+ * @example
+ * formatPercentString(10); // "10%"
  */
 function formatPercentString(number: number): string {
   return `${number}%`;
@@ -72,6 +76,8 @@ export const NumberUtilities = { formatPercentString, genRandomInRange };
  * @param amount The number to convert.
  * @param currency The currency symbol to prefix.
  * @returns A formatted string like "$5.00"
+ * @example
+ * formatCurrency(10) // "$10"
  */
 function formatCurrency(amount: number, currency: string = "$"): string {
   return `${currency}${amount.toFixed(2)}`;

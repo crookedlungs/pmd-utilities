@@ -1,4 +1,4 @@
-**@pathmaker-digital/pmd-utilities v2.0.2**
+**@pathmaker-digital/pmd-utilities v2.0.4**
 
 ***
 
@@ -10,6 +10,7 @@ A collection of reusable utility functions for strings, numbers, currency, dates
 
 ## Note:
 
+The most up-to-date docs are on the [Github Wiki](https://github.com/crookedlungs/pmd-utilities/wiki).
 These docs are very much still a work in progress!
 
 ---

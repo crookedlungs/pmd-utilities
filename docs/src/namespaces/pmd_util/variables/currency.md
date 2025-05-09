@@ -1,10 +1,10 @@
-[**@pathmaker-digital/pmd-utilities v2.0.2**](../../../../README.md)
+[**@pathmaker-digital/pmd-utilities v2.0.4**](../../../../README.md)
 
 ***
 
 > `const` **currency**: `object` = `pmd_utilities.CurrencyUtilities`
 
-Defined in: [src/index.ts:38](https://github.com/crookedlungs/pmd-utilities/blob/19500705a5dabc231662d26be5057eab6a35ebfe/src/index.ts#L38)
+Defined in: [src/index.ts:38](https://github.com/crookedlungs/pmd-utilities/blob/9f39d32abe09ed42c70c16473f8a612f4d8491bd/src/index.ts#L38)
 
 Currency manipulation utilities.
 
@@ -119,6 +119,12 @@ The currency symbol to prefix.
 `string`
 
 A formatted string like "$5.00"
+
+#### Example
+
+```ts
+formatCurrency(10) // "$10"
+```
 
 ### getTaxRateByState()
 

@@ -3,6 +3,8 @@ import { type SwitchCase, type DefaultCase, type SwitchReturnCase, type DefaultR
  * Converts or ensures a word is capitalized.
  * @param word The word to capitalize.
  * @returns The capitalized version of the `word` parameter.
+ * @example
+ * capitalize("hello"); // "Hello"
  */
 declare function capitalize(word: string): string;
 /**
@@ -15,6 +17,8 @@ export declare const StringUtilities: {
  * Formats a `number` as a `string` with a `%` sign suffix.
  * @param number The number to format.
  * @returns A formatted `%` string.
+ * @example
+ * formatPercentString(10); // "10%"
  */
 declare function formatPercentString(number: number): string;
 /**
@@ -46,6 +50,8 @@ export declare const NumberUtilities: {
  * @param amount The number to convert.
  * @param currency The currency symbol to prefix.
  * @returns A formatted string like "$5.00"
+ * @example
+ * formatCurrency(10) // "$10"
  */
 declare function formatCurrency(amount: number, currency?: string): string;
 /**

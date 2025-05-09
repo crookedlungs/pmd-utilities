@@ -1,10 +1,10 @@
-[**@pathmaker-digital/pmd-utilities v2.0.2**](../../README.md)
+[**@pathmaker-digital/pmd-utilities v2.0.4**](../../README.md)
 
 ***
 
 > **SwitchCase**\<`T`\> = `object`
 
-Defined in: [types.ts:7](https://github.com/crookedlungs/pmd-utilities/blob/19500705a5dabc231662d26be5057eab6a35ebfe/types.ts#L7)
+Defined in: [types.ts:7](https://github.com/crookedlungs/pmd-utilities/blob/9f39d32abe09ed42c70c16473f8a612f4d8491bd/types.ts#L7)
 
 Represents a case in a switch-like structure where a specific value is matched.
 
@@ -22,7 +22,7 @@ The type of the value to be checked.
 
 > **operation**: () => `void`
 
-Defined in: [types.ts:9](https://github.com/crookedlungs/pmd-utilities/blob/19500705a5dabc231662d26be5057eab6a35ebfe/types.ts#L9)
+Defined in: [types.ts:9](https://github.com/crookedlungs/pmd-utilities/blob/9f39d32abe09ed42c70c16473f8a612f4d8491bd/types.ts#L9)
 
 The function to execute when this case is matched.
 
@@ -36,6 +36,6 @@ The function to execute when this case is matched.
 
 > **value**: `T`
 
-Defined in: [types.ts:8](https://github.com/crookedlungs/pmd-utilities/blob/19500705a5dabc231662d26be5057eab6a35ebfe/types.ts#L8)
+Defined in: [types.ts:8](https://github.com/crookedlungs/pmd-utilities/blob/9f39d32abe09ed42c70c16473f8a612f4d8491bd/types.ts#L8)
 
 The value to be checked against.
