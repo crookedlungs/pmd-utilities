@@ -1,3 +1,11 @@
+import {
+  type SwitchCase,
+  type DefaultCase,
+  type SwitchReturnCase,
+  type DefaultReturnCase,
+  type Result,
+  type Option,
+} from "../types.js";
 import { stateTaxRates } from "./data/us-tax-rates.js";
 import bcrypt from "bcrypt";
 
@@ -59,7 +67,7 @@ function calculateTax(subtotal: number, taxRate: number): number {
 
 /**
  * Gets the sales tax rate for a given US state code.
- * @param stateCode The 2-letter state abbreviation (e.g., 'CA', 'TX').
+ * @param state The 2-letter state abbreviation (e.g., 'CA', 'TX').
  * @returns The sales tax rate as a percentage, or `null` if not found.
  */
 function getTaxRateByState(state: string): number | undefined {
@@ -180,7 +188,31 @@ function mergeFullName(
   }`;
 }
 
-export const NameUtilities = { splitFullName, mergeFullName };
+/**
+ * Formats a name with a prefix. Accepts either a string or an object with `firstName` and `lastName`.
+ * @param name The name to format, either as a string or an object.
+ * @param prefix A prefix to prepend (e.g., "Dr", "Ms", "Mr").
+ * @returns A formatted string in the form of "<prefix>. <full name>".
+ */
+function formatNameWithPrefix(
+  name: { firstName: string; lastName: string } | string,
+  prefix: "Mr" | "Mrs" | "Ms" | "Dr"
+): string {
+  const fullName =
+    typeof name === "string"
+      ? name
+      : mergeFullName(name.firstName, name.lastName);
+  return `${prefix}. ${fullName}`;
+}
+
+/**
+ * Name Utilities
+ */
+export const NameUtilities = {
+  splitFullName,
+  mergeFullName,
+  formatNameWithPrefix,
+};
 
 // Array Functions
 
@@ -328,13 +360,13 @@ function bulkUpdateInArray<T, K extends keyof T>(
 /**
  * Returns a new array excluding items where a given property matches a specific value.
  *
- * Example:
- *   const nonAdmins = allExcept(users, 'role', 'admin');
- *
  * @param array - The original array to filter.
  * @param property - The property of each item to check.
  * @param excludeValue - The value to exclude from the result.
  * @returns A new array containing all items except those matching the exclude value.
+ *
+ * @example
+ * const nonAdmins = allExcept(users, 'role', 'admin');
  */
 function allExcept<T, K extends keyof T>(
   array: T[],
@@ -418,6 +450,7 @@ function isValidEmail(email: string): boolean {
 
 /**
  * Generates a random password with a given length, ensuring it meets the strength criteria.
+ * Uses `isStrongPassword()` to ensure password is strong. Retries if not.
  * @param length The length of the password to generate.
  * @returns A randomly generated password that is strong.
  */
@@ -493,6 +526,9 @@ async function comparePassword(
   return await bcrypt.compare(password, hashedPassword);
 }
 
+/**
+ * Auth Utilities
+ */
 export const AuthUtilities = {
   generateRandomPassword,
   validateDomain,
@@ -501,4 +537,280 @@ export const AuthUtilities = {
   hasRole,
   comparePassword,
   hashPassword,
+};
+
+// Fetch Utilities
+
+/**
+ * A "pro" implementation of generic fetch/get.
+ * @param host Host address to fetch from.
+ * @param endpoint Endpoint to target.
+ * @param query Query options
+ * @param log Whether to log responses or not. Defaults to false.
+ * @returns
+ */
+async function proFetchGet(
+  host: string,
+  endpoint: string,
+  query: { field: string; value: any }[],
+  log: boolean = false
+): Promise<any> {
+  const options = {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+    },
+  };
+
+  let target = `${host}/${endpoint}`;
+
+  if (query.length > 0) {
+    const params = new URLSearchParams();
+    query.forEach(({ field, value }) => {
+      params.append(field, String(value));
+    });
+    target += `?${params.toString()}`;
+  }
+
+  try {
+    const res = await fetch(target, options);
+    const text = await res.text();
+
+    if (log) {
+      console.log("Raw response:", text);
+    }
+
+    const json = JSON.parse(text);
+
+    if (log) {
+      console.log("Parsed JSON:", json);
+    }
+    return json;
+  } catch (err) {
+    console.error("Failed to fetch or parse JSON:", err);
+    throw err; // optional, depending on your needs
+  }
+}
+
+/**
+ * A "pro" implementation of generic fetch/post.
+ * @param host Host address to push to.
+ * @param endpoint Endpoint to target.
+ * @param body The record to post.
+ * @param log Whether to log responses or not. Defaults to false.
+ * @returns
+ * 
+ * @example const response = await proFetchPost(
+  "https://api.example.com",
+  "submit",
+  { name: "Alice", score: 42 }
+);
+ */
+async function proFetchPost(
+  host: string,
+  endpoint: string,
+  body: Record<string, any>,
+  log: boolean = false
+): Promise<any> {
+  const options = {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  };
+
+  const target = `${host}/${endpoint}`;
+
+  try {
+    const res = await fetch(target, options);
+    const text = await res.text();
+
+    if (log) {
+      console.log("Raw response:", text);
+    }
+
+    const json = JSON.parse(text);
+
+    if (log) {
+      console.log("Parsed JSON:", json);
+    }
+
+    return json;
+  } catch (err) {
+    if (log) {
+      console.error("Failed to fetch or parse JSON:", err);
+    }
+    throw err;
+  }
+}
+
+/**
+ * Fetch Utilities
+ */
+export const FetchUtilities = { proFetchGet, proFetchPost };
+
+/**
+ * Implementation of generic `switch` statement to reduce boilerplate. 
+ * @param key Value to evaluate.
+ * @param cases Cases to use for switching.
+ * @example
+ * const color = "blue";
+
+proSwitch(color, [
+  { value: "red", operation: () => console.log("Color is red") },
+  { value: "blue", operation: () => console.log("Color is blue") },
+  { default: true, operation: () => console.log("Unknown color") },
+]);
+ */
+function proSwitch<T>(key: T, cases: (SwitchCase<T> | DefaultCase)[]): void {
+  for (const c of cases) {
+    if ("default" in c && c.default) {
+      c.operation(); // run default if nothing else matched later
+      return;
+    }
+    if ("value" in c && c.value === key) {
+      c.operation();
+      return;
+    }
+  }
+}
+
+/**
+ * Similar to a `match` expression in languages like Rust. 
+ * @param key Value to match for.
+ * @param cases Values to match against.
+ * @returns A value if a match was found.
+ * 
+ * @example 
+ * const result = proSwitchReturn("green", [
+  { value: "red", operation: () => "You chose red" },
+  { value: "blue", operation: () => "You chose blue" },
+  { default: true, operation: () => "Color not recognized" },
+]);
+
+console.log(result); // "Color not recognized"
+ */
+export function proSwitchReturn<T, R>(
+  key: T,
+  cases: (SwitchReturnCase<T, R> | DefaultReturnCase<R>)[]
+): R | undefined {
+  let defaultCase: (() => R) | undefined;
+
+  for (const c of cases) {
+    if ("default" in c && c.default) {
+      defaultCase = c.operation;
+    } else if ("value" in c && c.value === key) {
+      return c.operation();
+    }
+  }
+
+  return defaultCase?.();
+}
+
+/**
+ * Switch Utilities
+ */
+export const SwitchUtilities = { proSwitch, proSwitchReturn };
+
+// Safety Utilities
+
+/**
+ * Shorthand validation that a value exists.
+ * @param condition The condition to validate against.
+ * @param msg Message to throw if condition fails. Default value of `Assertion failed`.
+ * @example
+ * assert(user != null, "User not found");
+// Now `user` is not null or undefined in TS's eyes.
+ */
+function assert(
+  condition: unknown,
+  msg = "Assertion failed"
+): asserts condition {
+  if (!condition) throw new Error(msg);
+}
+
+/**
+ * Validates that the provided value is truthy (not null or undefined).
+ * This is essentially a shorthand for `assert(value != null)`.
+ *
+ * @param value The value to validate.
+ * @param msg Optional custom error message.
+ * @throws Error if the value is null or undefined.
+ */
+function isValid<T>(value: T, msg = "value is invalid!") {
+  assert(value != null, msg);
+}
+
+/**
+ * Represents a successful presence of a value, wrapped in an Option type.
+ *
+ * @template T - The type of the wrapped value.
+ * @param value - The value to wrap.
+ * @returns An Option of kind "some" containing the provided value.
+ */
+const Some = <T>(value: T): Option<T> => ({ kind: "some", value });
+
+/**
+ * Represents the absence of a value.
+ *
+ * @returns An Option of kind "none".
+ */
+const None = (): Option<never> => ({ kind: "none" });
+
+/**
+ * Unwraps an Option type and returns the contained value if it exists.
+ * If the Option is "none", it returns the provided fallback value.
+ *
+ * @template T - The type of the value.
+ * @param opt - The Option to unwrap.
+ * @param fallback - The fallback value to return if `opt` is "none".
+ * @returns The unwrapped value if present, or the fallback.
+ */
+function unwrapOr<T>(opt: Option<T>, fallback: T): T {
+  return opt.kind === "some" ? opt.value : fallback;
+}
+
+/**
+ * Creates a successful `Result` containing a value.
+ *
+ * @param value - The value to wrap in an `Ok`.
+ * @returns A `Result` of type `Ok<T>`.
+ */
+const Ok = <T>(value: T): Result<T, never> => ({ ok: true, value });
+
+/**
+ * Creates a failed `Result` containing an error.
+ *
+ * @param error - The error to wrap in an `Err`.
+ * @returns A `Result` of type `Err<E>`.
+ */
+const Err = <E>(error: E): Result<never, E> => ({ ok: false, error });
+
+/**
+ * Unwraps a `Result`, returning the value if it is `Ok`.
+ * Throws the error if it is an `Err`.
+ *
+ * @param res - The `Result` to unwrap.
+ * @returns The value if `res` is `Ok`.
+ * @throws The error if `res` is `Err`.
+ */
+function unwrapResult<T, E>(res: Result<T, E>): T {
+  if (res.ok) return res.value;
+  throw res.error;
+}
+
+/**
+ * Safety Utilities, heavily inspired by Rust.
+ */
+export const SafetyUtilities = {
+  assert,
+  Some,
+  None,
+  Err,
+  Ok,
+  unwrapOr,
+  unwrapResult,
+  isValid,
 };

@@ -1,7 +1,7 @@
 {
   "name": "@pathmaker-digital/pmd-utilities",
-  "version": "2.0.0",
-  "description": "A lightweight and modular collection of utility functions for working with strings, dates, names, and arrays in TypeScript and JavaScript.",
+  "version": "2.0.2",
+  "description": "A lightweight and modular collection of utility functions for working with strings, dates, names, and more in TypeScript and JavaScript.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
@@ -34,7 +34,9 @@
     "tools",
     "auth",
     "hashing",
-    "passwords"
+    "passwords",
+    "async",
+    "fetch"
   ],
   "author": "crookedlungs",
   "license": "MIT",
@@ -46,6 +48,8 @@
     "bcrypt": "^5.1.1"
   },
   "devDependencies": {
-    "@types/bcrypt": "^5.0.2"
+    "@types/bcrypt": "^5.0.2",
+    "typedoc": "^0.28.4",
+    "typedoc-plugin-markdown": "^4.6.3"
   }
 }

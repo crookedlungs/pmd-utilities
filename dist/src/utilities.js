@@ -141,7 +141,23 @@ function splitFullName(full_name, format = true) {
 function mergeFullName(firstName, lastName, format = true) {
     return `${format ? capitalize(firstName) : firstName} ${format ? capitalize(lastName) : lastName}`;
 }
-export const NameUtilities = { splitFullName, mergeFullName };
+/**
+ * Formats a name with a prefix. Accepts either a string or an object with `firstName` and `lastName`.
+ * @param name The name to format, either as a string or an object.
+ * @param prefix A prefix to prepend (e.g., "Dr", "Ms", "Mr").
+ * @returns A formatted string in the form of "<prefix>. <full name>".
+ */
+function formatNameWithPrefix(name, prefix) {
+    const fullName = typeof name === "string"
+        ? name
+        : mergeFullName(name.firstName, name.lastName);
+    return `${prefix}. ${fullName}`;
+}
+export const NameUtilities = {
+    splitFullName,
+    mergeFullName,
+    formatNameWithPrefix,
+};
 // Array Functions
 /**
  * Clear the entire array. This is destructive.
@@ -248,13 +264,13 @@ function bulkUpdateInArray(array, key, values, updater) {
 /**
  * Returns a new array excluding items where a given property matches a specific value.
  *
- * Example:
- *   const nonAdmins = allExcept(users, 'role', 'admin');
- *
  * @param array - The original array to filter.
  * @param property - The property of each item to check.
  * @param excludeValue - The value to exclude from the result.
  * @returns A new array containing all items except those matching the exclude value.
+ *
+ * @example
+ * const nonAdmins = allExcept(users, 'role', 'admin');
  */
 function allExcept(array, property, excludeValue) {
     return array.filter((item) => item[property] !== excludeValue);
@@ -323,6 +339,7 @@ function isValidEmail(email) {
 }
 /**
  * Generates a random password with a given length, ensuring it meets the strength criteria.
+ * Uses `isStrongPassword()` to ensure password is strong. Retries if not.
  * @param length The length of the password to generate.
  * @returns A randomly generated password that is strong.
  */
@@ -383,6 +400,9 @@ async function hashPassword(password) {
 async function comparePassword(password, hashedPassword) {
     return await bcrypt.compare(password, hashedPassword);
 }
+/**
+ * Auth Utilities
+ */
 export const AuthUtilities = {
     generateRandomPassword,
     validateDomain,
@@ -476,6 +496,9 @@ async function proFetchPost(host, endpoint, body, log = false) {
         throw err;
     }
 }
+/**
+ * Fetch Utilities
+ */
 export const FetchUtilities = { proFetchGet, proFetchPost };
 /**
  * Implementation of generic `switch` statement to reduce boilerplate.
@@ -529,6 +552,9 @@ export function proSwitchReturn(key, cases) {
     }
     return defaultCase?.();
 }
+/**
+ * Switch Utilities
+ */
 export const SwitchUtilities = { proSwitch, proSwitchReturn };
 // Safety Utilities
 /**
@@ -607,6 +633,9 @@ function unwrapResult(res) {
         return res.value;
     throw res.error;
 }
+/**
+ * Safety Utilities, heavily inspired by Rust.
+ */
 export const SafetyUtilities = {
     assert,
     Some,

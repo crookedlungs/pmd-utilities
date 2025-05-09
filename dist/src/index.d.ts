@@ -12,6 +12,10 @@ export declare namespace pmd_util {
             last_name: string;
         };
         mergeFullName: (firstName: string, lastName: string, format?: boolean) => string;
+        formatNameWithPrefix: (name: string | {
+            firstName: string;
+            lastName: string;
+        }, prefix: "Mr" | "Mrs" | "Ms" | "Dr") => string;
     };
     const arrays: {
         allExcept: <T, K extends keyof T>(array: T[], property: K, excludeValue: T[K]) => T[];
@@ -56,17 +60,17 @@ export declare namespace pmd_util {
         proFetchPost: (host: string, endpoint: string, body: Record<string, any>, log?: boolean) => Promise<any>;
     };
     const proSwitch: {
-        proSwitch: <T>(key: T, cases: any[]) => void;
+        proSwitch: <T>(key: T, cases: (import("../types.js").DefaultCase | import("../types.js").SwitchCase<T>)[]) => void;
         proSwitchReturn: typeof pmd_utilities.proSwitchReturn;
     };
     const safety: {
         assert: (condition: unknown, msg?: string) => asserts condition;
-        Some: <T>(value: T) => Option<T>;
-        None: () => Option<never>;
-        Err: <E>(error: E) => Result<never, E>;
-        Ok: <T_1>(value: T_1) => Result<T_1, never>;
-        unwrapOr: <T_2>(opt: Option<T_2>, fallback: T_2) => T_2;
-        unwrapResult: <T_3, E_1>(res: Result<T_3, E_1>) => T_3;
+        Some: <T>(value: T) => import("../types.js").Option<T>;
+        None: () => import("../types.js").Option<never>;
+        Err: <E>(error: E) => import("../types.js").Result<never, E>;
+        Ok: <T_1>(value: T_1) => import("../types.js").Result<T_1, never>;
+        unwrapOr: <T_2>(opt: import("../types.js").Option<T_2>, fallback: T_2) => T_2;
+        unwrapResult: <T_3, E_1>(res: import("../types.js").Result<T_3, E_1>) => T_3;
         isValid: <T_4>(value: T_4, msg?: string) => void;
     };
 }

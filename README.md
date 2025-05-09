@@ -1,6 +1,6 @@
 # 🧰 Pathmaker Digital Utility Toolkit
 
-A lightweight and modular collection of utility functions for working with **strings**, **numbers**, **dates**, **names**, **currency**, **taxes** and **arrays** in TypeScript and JavaScript.
+A collection of reusable utility functions for strings, numbers, currency, dates, names, and arrays. Designed for modern TypeScript applications.
 
 ---
 
@@ -14,6 +14,7 @@ A lightweight and modular collection of utility functions for working with **str
   - Currency and taxes
   - Async function helpers
   - Simple auth helpers
+  - Better `fetch` implementation.
 
 ---
 
