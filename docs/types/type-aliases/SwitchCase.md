@@ -4,7 +4,7 @@
 
 > **SwitchCase**\<`T`\> = `object`
 
-Defined in: [types.ts:7](https://github.com/crookedlungs/pmd-utilities/blob/216b7eef02efa9e0a1378f6c6f4885544f42cc60/types.ts#L7)
+Defined in: [types.ts:7](https://github.com/crookedlungs/pmd-utilities/blob/46cbc46e13dc37eb1ceed5549ab48780ef2516a4/types.ts#L7)
 
 Represents a case in a switch-like structure where a specific value is matched.
 
@@ -22,7 +22,7 @@ The type of the value to be checked.
 
 > **operation**: () => `void`
 
-Defined in: [types.ts:9](https://github.com/crookedlungs/pmd-utilities/blob/216b7eef02efa9e0a1378f6c6f4885544f42cc60/types.ts#L9)
+Defined in: [types.ts:9](https://github.com/crookedlungs/pmd-utilities/blob/46cbc46e13dc37eb1ceed5549ab48780ef2516a4/types.ts#L9)
 
 The function to execute when this case is matched.
 
@@ -36,6 +36,6 @@ The function to execute when this case is matched.
 
 > **value**: `T`
 
-Defined in: [types.ts:8](https://github.com/crookedlungs/pmd-utilities/blob/216b7eef02efa9e0a1378f6c6f4885544f42cc60/types.ts#L8)
+Defined in: [types.ts:8](https://github.com/crookedlungs/pmd-utilities/blob/46cbc46e13dc37eb1ceed5549ab48780ef2516a4/types.ts#L8)
 
 The value to be checked against.

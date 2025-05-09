@@ -4,7 +4,7 @@
 
 > **DefaultReturnCase**\<`R`\> = `object`
 
-Defined in: [types.ts:43](https://github.com/crookedlungs/pmd-utilities/blob/216b7eef02efa9e0a1378f6c6f4885544f42cc60/types.ts#L43)
+Defined in: [types.ts:43](https://github.com/crookedlungs/pmd-utilities/blob/46cbc46e13dc37eb1ceed5549ab48780ef2516a4/types.ts#L43)
 
 Represents the default case in a switch-like structure, with a return value of type `R`.
 This case is executed if none of the other cases match.
@@ -23,7 +23,7 @@ The type of the return value from the operation.
 
 > **default**: `true`
 
-Defined in: [types.ts:44](https://github.com/crookedlungs/pmd-utilities/blob/216b7eef02efa9e0a1378f6c6f4885544f42cc60/types.ts#L44)
+Defined in: [types.ts:44](https://github.com/crookedlungs/pmd-utilities/blob/46cbc46e13dc37eb1ceed5549ab48780ef2516a4/types.ts#L44)
 
 A flag to indicate that this is the default case.
 
@@ -33,7 +33,7 @@ A flag to indicate that this is the default case.
 
 > **operation**: () => `R`
 
-Defined in: [types.ts:45](https://github.com/crookedlungs/pmd-utilities/blob/216b7eef02efa9e0a1378f6c6f4885544f42cc60/types.ts#L45)
+Defined in: [types.ts:45](https://github.com/crookedlungs/pmd-utilities/blob/46cbc46e13dc37eb1ceed5549ab48780ef2516a4/types.ts#L45)
 
 The function to execute when the default case is selected, returning a value of type `R`.
 

@@ -3,12 +3,16 @@
   "out": "docs",
   "plugin": ["typedoc-plugin-markdown"],
   "theme": "markdown",
-  "readme": "none",
+  "readme": "README.md",
   "excludePrivate": true,
   "excludeInternal": true,
   "excludeProtected": true,
   "hideBreadcrumbs": true,
   "hidePageTitle": true,
   "hideGenerator": true,
-  "includeVersion": true
+  "includeVersion": true,
+  "githubPages": true,
+  "lang": "en",
+  "jsDocCompatibility": true,
+  "cleanOutputDir": true
 }

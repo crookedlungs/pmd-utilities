@@ -4,7 +4,7 @@
 
 > `const` **currency**: `object` = `pmd_utilities.CurrencyUtilities`
 
-Defined in: [src/index.ts:37](https://github.com/crookedlungs/pmd-utilities/blob/216b7eef02efa9e0a1378f6c6f4885544f42cc60/src/index.ts#L37)
+Defined in: [src/index.ts:37](https://github.com/crookedlungs/pmd-utilities/blob/46cbc46e13dc37eb1ceed5549ab48780ef2516a4/src/index.ts#L37)
 
 Currency manipulation utilities.
 
