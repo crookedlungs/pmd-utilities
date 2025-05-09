@@ -3,7 +3,10 @@ name: Release Build
 on:
   push:
     branches:
-      - main # Change this if your source branch has a different name
+      - main
+
+permissions:
+  contents: write
 
 jobs:
   build-and-release:
@@ -16,13 +19,20 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "18" # or whatever version you're using
+          node-version: "18"
 
       - name: Install dependencies
         run: npm install
 
       - name: Build project
         run: npm run build
+
+      - name: Ensure remote origin exists
+        run: |
+          if git remote | grep origin; then
+            git remote rm origin
+          fi
+          git remote add origin https://github.com/${{ github.repository }}.git
 
       - name: Deploy to release branch
         uses: peaceiris/actions-gh-pages@v3
