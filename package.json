@@ -1,7 +1,7 @@
 {
   "name": "@pathmaker-digital/pmd-utilities",
-  "version": "1.0.0",
-  "description": "A basic set of utilities frequently used in Pathmaker Digital projects.",
+  "version": "1.0.1",
+  "description": "A lightweight and modular collection of utility functions for working with strings, dates, names, and arrays in TypeScript and JavaScript.",
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
