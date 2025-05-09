@@ -4,7 +4,7 @@
 
 > **Result**\<`T`, `E`\> = \{ `ok`: `true`; `value`: `T`; \} \| \{ `error`: `E`; `ok`: `false`; \}
 
-Defined in: [types.ts:71](https://github.com/crookedlungs/pmd-utilities/blob/5ca315c6bbade42eec82f4fe36a9e0a801b153e9/types.ts#L71)
+Defined in: [types.ts:71](https://github.com/crookedlungs/pmd-utilities/blob/e95126ac0ffa3721bf6a80fcac92206614bcb3cc/types.ts#L71)
 
 A export type that represents the result of an operation that may succeed (`Ok`) or fail (`Err`).
 

@@ -11,7 +11,6 @@
   "hidePageTitle": true,
   "hideGenerator": true,
   "includeVersion": true,
-  "githubPages": true,
   "lang": "en",
   "jsDocCompatibility": true,
   "cleanOutputDir": true

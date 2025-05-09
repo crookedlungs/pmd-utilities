@@ -4,7 +4,7 @@
 
 > **Option**\<`T`\> = \{ `kind`: `"some"`; `value`: `T`; \} \| \{ `kind`: `"none"`; \}
 
-Defined in: [types.ts:58](https://github.com/crookedlungs/pmd-utilities/blob/5ca315c6bbade42eec82f4fe36a9e0a801b153e9/types.ts#L58)
+Defined in: [types.ts:58](https://github.com/crookedlungs/pmd-utilities/blob/e95126ac0ffa3721bf6a80fcac92206614bcb3cc/types.ts#L58)
 
 A export type that represents an optional value.
 
